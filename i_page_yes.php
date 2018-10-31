@@ -22,9 +22,13 @@ if(!($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
   }
 }
 $preference = $_GET["preference"];
-exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_yes_no = '$preference' WHERE user_id = '$current_user' AND question_id = '$id_carrier'");
-if($num_of_users <= 1 || $current_user_world_id == 1 || ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1))){
-	$dataPoints1 = array(
+if(
+  $num_of_users <= 1 || $current_user_world_id == 1
+  || ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)))
+  || ($id_carrier!=23&&$id_carrier!=24)
+  ){
+  echo "213";
+  $dataPoints1 = array(
 		array("label"=> null, "y"=> null, "x"=>null ),
 		array("label"=> null, "y"=> null),
 	);
@@ -43,7 +47,6 @@ if($num_of_users <= 1 || $current_user_world_id == 1 || ((($support_num_of_demo_
 		array("label"=> null, "y"=> null, "x"=>null)
 	);
 }else if ($id_carrier == 21){
-
 	$dataPoints1 = array(
 		array("label"=> "Democrats: 12% Agree", "y"=> 12, "z"=>$support_num_of_demo_percent),
 		array("label"=> "Republicans: 91% Agree", "y"=> null),
@@ -63,7 +66,6 @@ if($num_of_users <= 1 || $current_user_world_id == 1 || ((($support_num_of_demo_
 		array("label"=> "Republicans: 91% Agree", "y"=> 9, "z"=>$oppose_num_of_repub_percent)
 	);
 }else if($id_carrier == 22){
-
 	$dataPoints1 = array(
 		array("label"=> "Democrats: 91% Agree", "y"=> 91, "z"=>$support_num_of_demo_percent),
 		array("label"=> "Republicans: 12% Agree", "y"=> null),
@@ -296,7 +298,6 @@ else {
 $form_universal_tag = '<form class="form_i" id="question_box" ';
 
 if($id_carrier == 24 || $id_carrier == 23){
-  // var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent, $support_num_of_repub_percent,$oppose_num_of_repub_percent);
   if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1))
   {
     echo $form_universal_tag, 'style="width:100% !important;" action="game_start.php" method="post">';
