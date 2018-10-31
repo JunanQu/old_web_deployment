@@ -313,26 +313,34 @@ chart.render();
 	<!-- ================ BODY ================ -->
 	<!-- <div class="box left"> -->
   <?php
-   if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
+   if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
+        && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)
+        && $id_carrier != 23 && $id_carrier != 24) {
     echo '<div class="wrapper5" style="width:100%;">';
+    echo 'Debug 1: ';
+    var_dump($id_carrier);
   }
   else {
     echo '<div class="wrapper5">';
+    echo 'Debug 2: ';
+    var_dump($id_carrier);
   }
  ?>
   <!-- <div class="wrapper5" style="width:100% !important;"> -->
 
 <?php
-if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
+if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
+    && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)
+    && $id_carrier != 23 && $id_carrier != 24) {
 		echo "<p>Pick the reason ";
     echo "$user_political_id";
     echo " players might answer differently than the other party.</p>";
-  }else{
+  } else {
     echo "
         <p>
-        <b>Please take 10 seconds to read the statement carefully and think about the
+        <em>Please take 10 seconds to read the statement carefully and think about the
     		past views of previous participants.
-        </b>
+        </em>
         </p>
         <p>Based on the bar chart to the right, pick the reason ";
     echo "$user_political_id";
