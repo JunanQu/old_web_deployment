@@ -1,0 +1,40 @@
+#question_box {
+    border: 1px solid black;
+    padding: 30px;
+}
+
+button.opinion_response {
+    text-align: center;
+    padding: 10px 20px;
+    margin: 0 20px;
+    box-sizing: border-box;
+    width: 30%;
+    background: #7A38FF;
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+    border: 1px solid #7A38FF;
+}
+
+button.opinion_response:enabled {
+    cursor: pointer;
+}
+
+button.opinion_response:enabled:hover {
+    color: #7A38FF;
+    background: white;
+    border: 1px solid #7A38FF;
+}
+
+p.question_text {
+    margin-bottom: 20px;
+}
+
+p.initially_hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+button.initially_hide {
+    opacity: 0.4;
+}
