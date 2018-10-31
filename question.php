@@ -1,11 +1,9 @@
 <?php
 // include('includes/header.php');
+
 include('test2.php');
 include('proceed.php');
-
-// $preference = $_GET["preference"];
-// exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_yes_no = '$preference' WHERE user_id = '$current_user' AND question_id = '$id_carrier'");
-if($num_of_users == 1){
+if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num_of_repub_percent==0&&$oppose_num_of_repub_percent==0){
 	$dataPoints1 = array(
 		array("label"=> null, "y"=> null, "x"=>null ),
 		array("label"=> null, "y"=> null),
@@ -317,13 +315,9 @@ chart.render();
         && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)
         && $id_carrier != 23 && $id_carrier != 24) {
     echo '<div class="wrapper5" style="width:100%;">';
-    echo 'Debug 1: ';
-    var_dump($id_carrier);
   }
   else {
     echo '<div class="wrapper5">';
-    echo 'Debug 2: ';
-    var_dump($id_carrier);
   }
  ?>
   <!-- <div class="wrapper5" style="width:100% !important;"> -->

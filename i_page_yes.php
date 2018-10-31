@@ -22,13 +22,8 @@ if(!($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
   }
 }
 $preference = $_GET["preference"];
-if(
-  $num_of_users <= 1 || $current_user_world_id == 1
-  || ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)))
-  || ($id_carrier!=23&&$id_carrier!=24)
-  ){
-  echo "213";
-  $dataPoints1 = array(
+if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num_of_repub_percent==0&&$oppose_num_of_repub_percent==0){
+	$dataPoints1 = array(
 		array("label"=> null, "y"=> null, "x"=>null ),
 		array("label"=> null, "y"=> null),
 	);
@@ -46,7 +41,9 @@ if(
 		array("label"=> null, "y"=> null),
 		array("label"=> null, "y"=> null, "x"=>null)
 	);
-}else if ($id_carrier == 21){
+}else if ($id_carrier == 23){
+
+
 	$dataPoints1 = array(
 		array("label"=> "Democrats: 12% Agree", "y"=> 12, "z"=>$support_num_of_demo_percent),
 		array("label"=> "Republicans: 91% Agree", "y"=> null),
@@ -65,7 +62,7 @@ if(
 		array("label"=> "Democrats: 12% Agree", "y"=> null),
 		array("label"=> "Republicans: 91% Agree", "y"=> 9, "z"=>$oppose_num_of_repub_percent)
 	);
-}else if($id_carrier == 22){
+}else if($id_carrier == 24){
 	$dataPoints1 = array(
 		array("label"=> "Democrats: 91% Agree", "y"=> 91, "z"=>$support_num_of_demo_percent),
 		array("label"=> "Republicans: 12% Agree", "y"=> null),
@@ -123,7 +120,6 @@ if(
 		array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> $oppose_rate_of_repub_percent, "z"=>$oppose_num_of_repub_percent)
 	);
 }else if(($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0) && ($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0)){
-  // var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
 	$dataPoints1 = array(
 		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> $support_rate_of_demo_percent, "z"=>$support_num_of_demo_percent),
 		array("label"=> " ", "y"=> null),
@@ -135,12 +131,12 @@ if(
 
 	$dataPoints3 = array(
 		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> null),
-		array("label"=> " ", "y"=> null, "z"=>$support_num_of_repub_percent)
+		array("label"=> " ", "y"=> $support_rate_of_repub_percent, "z"=>$support_num_of_repub_percent)
 	);
 
 	$dataPoints4 = array(
 		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> null),
-		array("label"=> " ", "y"=> null, "z"=>$oppose_num_of_repub_percent)
+		array("label"=> " ", "y"=> $oppose_rate_of_repub_percent, "z"=>$oppose_num_of_repub_percent)
 	);
 }else{
 	$dataPoints1 = array(
@@ -307,9 +303,9 @@ if($id_carrier == 24 || $id_carrier == 23){
   }
 }else{
   if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1)) {
-    echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
+    echo $form_universal_tag, 'style="width:100% !important;" action="question.php?preference=1" method="post">';
   }else{
-  echo $form_universal_tag, 'action="i_page_yes.php?preference=1" method="post">';
+  echo $form_universal_tag, 'action="question.php?preference=1" method="post">';
   }
 }
 ?>
