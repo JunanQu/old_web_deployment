@@ -22,8 +22,13 @@ if(!($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
   }
 }
 $preference = $_GET["preference"];
-if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num_of_repub_percent==0&&$oppose_num_of_repub_percent==0){
-	$dataPoints1 = array(
+if(
+  $num_of_users <= 1 || $current_user_world_id == 1
+  || ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)))
+  || ($id_carrier!=23&&$id_carrier!=24)
+  ){
+  echo "213";
+  $dataPoints1 = array(
 		array("label"=> null, "y"=> null, "x"=>null ),
 		array("label"=> null, "y"=> null),
 	);
@@ -41,9 +46,7 @@ if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num
 		array("label"=> null, "y"=> null),
 		array("label"=> null, "y"=> null, "x"=>null)
 	);
-}else if ($id_carrier == 23){
-
-
+}else if ($id_carrier == 21){
 	$dataPoints1 = array(
 		array("label"=> "Democrats: 12% Agree", "y"=> 12, "z"=>$support_num_of_demo_percent),
 		array("label"=> "Republicans: 91% Agree", "y"=> null),
@@ -62,7 +65,7 @@ if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num
 		array("label"=> "Democrats: 12% Agree", "y"=> null),
 		array("label"=> "Republicans: 91% Agree", "y"=> 9, "z"=>$oppose_num_of_repub_percent)
 	);
-}else if($id_carrier == 24){
+}else if($id_carrier == 22){
 	$dataPoints1 = array(
 		array("label"=> "Democrats: 91% Agree", "y"=> 91, "z"=>$support_num_of_demo_percent),
 		array("label"=> "Republicans: 12% Agree", "y"=> null),
@@ -120,6 +123,7 @@ if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num
 		array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> $oppose_rate_of_repub_percent, "z"=>$oppose_num_of_repub_percent)
 	);
 }else if(($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0) && ($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0)){
+  // var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
 	$dataPoints1 = array(
 		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> $support_rate_of_demo_percent, "z"=>$support_num_of_demo_percent),
 		array("label"=> " ", "y"=> null),
@@ -131,12 +135,12 @@ if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num
 
 	$dataPoints3 = array(
 		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> null),
-		array("label"=> " ", "y"=> $support_rate_of_repub_percent, "z"=>$support_num_of_repub_percent)
+		array("label"=> " ", "y"=> null, "z"=>$support_num_of_repub_percent)
 	);
 
 	$dataPoints4 = array(
 		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> null),
-		array("label"=> " ", "y"=> $oppose_rate_of_repub_percent, "z"=>$oppose_num_of_repub_percent)
+		array("label"=> " ", "y"=> null, "z"=>$oppose_num_of_repub_percent)
 	);
 }else{
 	$dataPoints1 = array(
@@ -303,21 +307,17 @@ if($id_carrier == 24 || $id_carrier == 23){
   }
 }else{
   if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1)) {
-    // echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
-    echo $form_universal_tag, 'style="width:100% !important;" action="question.php?preference=1" method="post">';
+    echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
   }else{
-    // echo $form_universal_tag, 'action="i_page_yes.php?preference=1" method="post">';
-    echo $form_universal_tag, 'action="question.php?preference=1" method="post">';
+  echo $form_universal_tag, 'action="i_page_yes.php?preference=1" method="post">';
   }
 }
 ?>
     <p class="question_text initially_show">
-      Please take a few moments to read the statement carefully and think about your response.
+      For an opportunity to win* $100:
     </p>
-    <p class="question_text initially_hide">You may now answer the question.</p>
-
     <p class="question_text initially_hide">
-      As a <?php echo "$user_political_id" ?>, do you agree with the opinions of previous participants from your party?
+      Which party do you predict is more likely to agree with this opinion?
     </p>
     <br/><br/>
 
@@ -328,11 +328,11 @@ if($id_carrier == 24 || $id_carrier == 23){
     <!-- Buttons for user to choose between. This will auto-populate the hidden
          field on the client side. -->
     </fieldset>
-    <button id="agree" class="opinion_response initially_hide" value="agree" disabled>
-        I agree.
+    <button id="democrats" class="opinion_response initially_hide" value="democrats" disabled>
+        Democrats
     </button>
-    <button id="disagree" class="opinion_response initially_hide" value="disagree" disabled>
-        I disagree.
+    <button id="republicans" class="opinion_response initially_hide" value="republicans" disabled>
+        Republicans
     </button>
 </form>
 </div>
@@ -344,7 +344,7 @@ let WAS_SUBMITTED = false;
 let CAN_SUBMIT = false;
 var USER_START_TIME = -1;
 var USER_END_TIME = -1;
-const QUESTION_FADE_TIME = 7; // Number of seconds it should take for Q to appear.
+const QUESTION_FADE_TIME = 4; // Number of seconds it should take for Q to appear.
 
 $(document).ready(function() {
     USER_START_TIME = performance.now();

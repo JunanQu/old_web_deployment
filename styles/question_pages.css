@@ -26,6 +26,16 @@ button.opinion_response:enabled:hover {
     border: 1px solid #7A38FF;
 }
 
+button#democrats {
+  background: blue;
+  color: white;
+}
+
+button#republicans {
+  background: red;
+  color: white;
+}
+
 p.question_text {
     margin-bottom: 20px;
 }
