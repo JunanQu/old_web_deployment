@@ -348,7 +348,7 @@ if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
   }
 ?>
 		<div class="reasons_question">
-			<form action="i_page_yes.php?preference=1" method="post">
+			<form action="party_prediction_question.php?preference=1" method="post">
 				<div class="reason">
 					<input name="ideology" type="submit" class="reason_button" value="ideology" disabled>
 					</input>

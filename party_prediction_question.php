@@ -344,7 +344,7 @@ let WAS_SUBMITTED = false;
 let CAN_SUBMIT = false;
 var USER_START_TIME = -1;
 var USER_END_TIME = -1;
-const QUESTION_FADE_TIME = 7; // Number of seconds it should take for Q to appear.
+const QUESTION_FADE_TIME = 4; // Number of seconds it should take for Q to appear.
 
 $(document).ready(function() {
     USER_START_TIME = performance.now();

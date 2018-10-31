@@ -307,9 +307,11 @@ if($id_carrier == 24 || $id_carrier == 23){
   }
 }else{
   if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1)) {
-    echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
+    // echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
+    echo $form_universal_tag, 'style="width:100% !important;" action="question.php?preference=1" method="post">';
   }else{
-  echo $form_universal_tag, 'action="i_page_yes.php?preference=1" method="post">';
+    // echo $form_universal_tag, 'action="i_page_yes.php?preference=1" method="post">';
+    echo $form_universal_tag, 'action="question.php?preference=1" method="post">';
   }
 }
 ?>
