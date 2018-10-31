@@ -42,49 +42,52 @@ function enableButton() {
 
     <div class="wrapper" id="consent">
         <p>
-           Dear Participant,
-
-         <p>
-           Thank you for your interest in our study.
-           Please read this page carefully and check the box if you agree to participate.
-         </p>
-
+          Dear Participant,
+        </p>
+        <p>
+          Thank you for your interest in playing the Political Prediction Game!
+        </p>
+        <p>
+          Please read this page carefully and check the box at the bottom of the
+          page if you agree to participate.
+        </p>
         <p>
           You must be 18 years old or older to participate.
-          You may print a copy of this page for your records.
-          The purpose of this study is to test group differences in political and cultural beliefs between the two main political parties in the U.S.
         </p>
-
-         <p>
-           If you agree to take part in this study, we will ask you to indicate whether you agree or disagree with 16 statements and why you believe other people may agree with such statements in an anonymous setting.
-           This should take less than 12 minutes, for which you will be paid $2.00.
-         </p>
-         <p>
+        <p>
+          If you agree to participate, we will present you with 15 statements about
+          novel political and cultural issues  (plus a practice question).
+        </p>
+        <p>
+          For each issue, we will ask you whether you and others in your political
+          party are more likely to agree or disagree with the statement, and why.
+          This should take no more than 10 minutes, for which you will be paid $2.00.
+        </p>
+        <p>
           Taking part in this study is completely voluntary.
           If you decide to participate,
           you are free to withdraw at anytime and you are free to stop at any time for any reason.
           However, should you decide to withdraw, you will forfeit your payment.
-         </p>
-         <p>
+        </p>
+        <p>
           Your responses will be completely anonymous.
           We do not collect any personally identifiable information.
           Your test responses will be stored on an encrypted database.
           Only researchers involved in this study will have access to this information.
           The records will not contain your name or any other personal information that could be used to identify you.
           In any report we make public, we will only discuss group averages and will not include any individual information.
-         </p>
-         <p>
+        </p>
+        <p>
            This study is conducted by researchers from Cornell University: Dr. Michael Macy, Alexander Ruch, Natalie Tong, and Sebastian Deri.
-           If you have any questions about this research, you may reach Dr. Macy by email at mwmacy@cornell.edu.
-         </p>
-         <p>
-         If you have any questions or concerns regarding your rights as a participant in this study,
-         you may contact Cornell University's Institutional Review Board at 607-255-5138 or irb.cornell.edu.
-         You may also report your concerns or complaints anonymously to Ethicspoint at hotline.cornell.edu or 1-866-293-3077.
-         Ethicspoint is an independent liaison organization that ensures anonymity of anyone with a complaint about a research project in which they are participating.
-         </p>
+           If you have any questions about this research, you may reach Dr. Macy by email at <a href="mailto:mwmacy@cornell.edu">mwmacy@cornell.edu</a>.
+        </p>
+        <p>
+          If you have any questions or concerns regarding your rights as a participant in this study,
+          you may contact Cornell University's Institutional Review Board at 607-255-5138 or irb.cornell.edu.
+          You may also report your concerns or complaints anonymously to Ethicspoint at hotline.cornell.edu or 1-866-293-3077.
+          Ethicspoint is an independent liaison organization that ensures anonymity of anyone with a complaint about a research project in which they are participating.
+        </p>
        </p>
-       <br><br>
 
 
 
