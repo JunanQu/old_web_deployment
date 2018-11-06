@@ -141,7 +141,7 @@
                 $world = $world_data;
                 exec_sql_query($myPDO, "DELETE FROM world LIMIT 1 ");
                 // exec_sql_query($myPDO, "UPDATE user SET world = '$world' WHERE mturk = '". $current_user. "'");
-                exec_sql_query($myPDO, "UPDATE user SET world = 2 WHERE mturk = '". $current_user. "'");
+                exec_sql_query($myPDO, "UPDATE user SET world = 5 WHERE mturk = '". $current_user. "'");
                 $current_user= $user_mTurk_code;
                 // ($current_user);
                 check_login();
@@ -215,7 +215,6 @@
 
           // ($id_carrier);
           $a=exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_response = '$user_answer' WHERE question_id = '$previous_one' AND user_id = '$current_user'");
-          ($a);
 
 
           $current_user = check_login();
@@ -424,7 +423,7 @@
       if(isset($_POST['user_response'])&&isset($_POST['user_time'])){
       $user_response = $_POST['user_response'];
       $user_time = $_POST['user_time'];
-      exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, user_response, user_time_spent) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', '$user_response','$user_time') ");
+      exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, user_political_stand, user_time_spent) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', '$user_response','$user_time') ");
       $current_user = check_login();
       $id_carrier = check_question_id();
       }

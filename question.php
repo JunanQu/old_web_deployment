@@ -1,144 +1,89 @@
 <?php
-// include('includes/header.php');
-
 include('test2.php');
-include('proceed.php');
-if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num_of_repub_percent==0&&$oppose_num_of_repub_percent==0){
-	$dataPoints1 = array(
-		array("label"=> null, "y"=> null, "x"=>null ),
-		array("label"=> null, "y"=> null),
-	);
-	$dataPoints2 = array(
-		array("label"=> null, "y"=> null, "x"=>null),
-		array("label"=> null, "y"=> null),
-	);
 
-	$dataPoints3 = array(
-		array("label"=> null, "y"=> null),
-		array("label"=> null, "y"=> null, "x"=>null)
-	);
+if (!$num_of_users<=1 && !(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0))) {
 
-	$dataPoints4 = array(
-		array("label"=> null, "y"=> null),
-		array("label"=> null, "y"=> null, "x"=>null)
-	);
-}else if ($id_carrier == 23){
-
-
-	$dataPoints1 = array(
-		array("label"=> "Democrats: 12% Agree", "y"=> 12, "z"=>$support_num_of_demo_percent),
-		array("label"=> "Republicans: 91% Agree", "y"=> null),
-	);
-	$dataPoints2 = array(
-		array("label"=> "Democrats: 12% Agree", "y"=> 88, "z"=>$oppose_num_of_demo_percent),
-		array("label"=> "Republicans: 91% Agree", "y"=> null),
-	);
-
-	$dataPoints3 = array(
-		array("label"=> "Democrats: 12% Agree", "y"=> null),
-		array("label"=> "Republicans: 91% Agree", "y"=> 91, "z"=>$support_num_of_repub_percent)
-	);
-
-	$dataPoints4 = array(
-		array("label"=> "Democrats: 12% Agree", "y"=> null),
-		array("label"=> "Republicans: 91% Agree", "y"=> 9, "z"=>$oppose_num_of_repub_percent)
-	);
-}else if($id_carrier == 24){
-	$dataPoints1 = array(
-		array("label"=> "Democrats: 91% Agree", "y"=> 91, "z"=>$support_num_of_demo_percent),
-		array("label"=> "Republicans: 12% Agree", "y"=> null),
-	);
-	$dataPoints2 = array(
-		array("label"=> "Democrats: 91% Agree", "y"=> 9, "z"=>$oppose_num_of_demo_percent),
-		array("label"=> "Republicans: 12% Agree", "y"=> null),
-	);
-
-	$dataPoints3 = array(
-		array("label"=> "Democrats: 91% Agree", "y"=> null),
-		array("label"=> "Republicans: 12% Agree", "y"=> 12, "z"=>$support_num_of_repub_percent)
-	);
-
-	$dataPoints4 = array(
-		array("label"=> "Democrats: 91% Agree", "y"=> null),
-		array("label"=> "Republicans: 12% Agree", "y"=> 88, "z"=>$oppose_num_of_repub_percent)
-	);
-}else if (($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-		$dataPoints1 = array(
-			array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> $support_rate_of_demo_percent, "z"=>$support_num_of_demo_percent),
-			array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> null),
-		);
-		$dataPoints2 = array(
-			array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> $oppose_rate_of_demo_percent, "z"=>$oppose_num_of_demo_percent),
-			array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> null),
-		);
-
-		$dataPoints3 = array(
-			array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> null),
-			array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> $support_rate_of_repub_percent, "z"=>$support_num_of_repub_percent)
-		);
-
-		$dataPoints4 = array(
-			array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> null),
-			array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> $oppose_rate_of_repub_percent, "z"=>$oppose_num_of_repub_percent)
-		);
-}else if(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-	$dataPoints1 = array(
-		array("label"=> " ", "y"=> $support_rate_of_demo_percent, "z"=>$support_num_of_demo_percent),
-		array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> null),
-	);
-	$dataPoints2 = array(
-		array("label"=> " ", "y"=> $oppose_rate_of_demo_percent, "z"=>$oppose_num_of_demo_percent),
-		array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> null),
-	);
-
-	$dataPoints3 = array(
-		array("label"=> " ", "y"=> null),
-		array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> $support_rate_of_repub_percent, "z"=>$support_num_of_repub_percent)
-	);
-
-	$dataPoints4 = array(
-		array("label"=> " ", "y"=> null),
-		array("label"=> "Republicans: $support_rate_of_repub_percent% Agree", "y"=> $oppose_rate_of_repub_percent, "z"=>$oppose_num_of_repub_percent)
-	);
-}else if(($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0) && ($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0)){
-	$dataPoints1 = array(
-		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> $support_rate_of_demo_percent, "z"=>$support_num_of_demo_percent),
-		array("label"=> " ", "y"=> null),
-	);
-	$dataPoints2 = array(
-		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> $oppose_rate_of_demo_percent, "z"=>$oppose_num_of_demo_percent),
-		array("label"=> " ", "y"=> null),
-	);
-
-	$dataPoints3 = array(
-		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> null),
-		array("label"=> " ", "y"=> $support_rate_of_repub_percent, "z"=>$support_num_of_repub_percent)
-	);
-
-	$dataPoints4 = array(
-		array("label"=> "Democrats: $support_rate_of_demo_percent% Agree", "y"=> null),
-		array("label"=> " ", "y"=> $oppose_rate_of_repub_percent, "z"=>$oppose_num_of_repub_percent)
-	);
-}else{
-	$dataPoints1 = array(
-		array("label"=> null, "y"=> null, "x"=>null ),
-		array("label"=> null, "y"=> null),
-	);
-	$dataPoints2 = array(
-		array("label"=> null, "y"=> null, "x"=>null),
-		array("label"=> null, "y"=> null),
-	);
-
-	$dataPoints3 = array(
-		array("label"=> null, "y"=> null),
-		array("label"=> null, "y"=> null, "x"=>null)
-	);
-
-	$dataPoints4 = array(
-		array("label"=> null, "y"=> null),
-		array("label"=> null, "y"=> null, "x"=>null)
-	);
+if ($support_rate_of_demo_percent >= 95){
+  $support_rate_of_demo_percent = rand(95,98);
+  $oppose_rate_of_demo_percent = 100-$support_rate_of_demo_percent;
 }
+if ($support_rate_of_demo_percent <= 5){
+  $support_rate_of_demo_percent = rand(1,5);
+  $oppose_rate_of_demo_percent = 100-$support_rate_of_demo_percent;
+}
+}
+if(!($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
+  if($support_rate_of_repub_percent >= 95){
+    $support_rate_of_repub_percent = rand(95,98);
+    $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
+  }
+  if($support_rate_of_repub_percent <= 5){
+    $support_rate_of_repub_percent = rand(1,5);
+    $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
+  }
+}
+$preference = $_GET["preference"];
+// if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num_of_repub_percent==0&&$oppose_num_of_repub_percent==0){
+//   $dataPoints = array(
+//   	array("y" => null, "label" => "Democrats" ),
+//   	array("y" => null, "label" => "Republicans" ),
+//   );
+//
+// }else if ($id_carrier == 23){
+//   $dataPoints = array(
+//   	array("y" => 12, "label" => "Democrats" ),
+//   	array("y" => 88, "label" => "Republicans" ),
+//   );
+// }else if($id_carrier == 24){
+//   $dataPoints = array(
+//     array("y" => 91, "label" => "Democrats" ),
+//     array("y" => 12, "label" => "Republicans" ),
+//   );
+// }else
+// if (($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
+var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
+if ($id_carrier == 23){
+  echo "23";
+  $dataPoints = array(
+  	array("y" => 12, "label" => "Democrats" ),
+  	array("y" => 88, "label" => "Republicans" ),
+  );
+}else if($id_carrier == 24){
+  echo "24";
+  $dataPoints = array(
+  	array("y" => 91, "label" => "Democrats" ),
+  	array("y" => 9, "label" => "Republicans" ),
+  );
+}
+else if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1)) {
+  echo "null";
+  $dataPoints = array(
+    array("y" => null, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
+    array("y" => null, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
+  );
+}else{
+  $dataPoints = array(
+  	array("y" => $support_rate_of_demo_percent, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
+  	array("y" => $support_rate_of_repub_percent, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
+  );
+}
+// }
+// else if(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
+//   $dataPoints = array(
+//   	array("y" => null, "label"=> " " ),
+//   	array("y" => $support_rate_of_repub_percent, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
+//   );
+// }else if(($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0) && ($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0)){
+//   $dataPoints = array(
+//   	array("y" => $support_rate_of_demo_percent, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
+//   	array("y" => null, "label"=> " " ),
+//   );
+// }else{
+//   $dataPoints = array(
+//   	array("y" => null, "label"=> null),
+//   	array("y" => null, "label"=> null ),
+//   );
+// }
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -166,7 +111,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		}?>
 		// text: "So far, <?php echo ($all_demo_in_world); ?> Democrats and <?php echo ($all_republican_in_world); ?> Republicans have responded to this question. Here are their responses:"
 	},
-	theme: "light2",
 	animationEnabled: true,
 	toolTip:{
 		shared: false,
@@ -176,51 +120,25 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	axisX: {
 	labelFontSize: 15
 	},
-	axisY: {
-		suffix: "%"
-	},
-	data: [
-		{
-			color:"#3357FF",
-			type: "stackedColumn100",
-			name: "Democrats Who Support",
-			indexLabel: "{y}% Agree",
-			indexLabelFontWeight: "bold",
-			indexLabelFontSize: 15,
-			indexLabelFontColor: "black",
-			// showInLegend: true,
-			dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
-		},{
-			color: "#E1F7FF",
-			type: "stackedColumn100",
-			name: "Democrats Who Oppose",
-			// indexLabelPlacement: "inside",
-			// showInLegend: true,
-			indexLabel: "{y}% Disagree",
-			indexLabelFontWeight: "bold",
-			indexLabelFontSize: 15,
-			indexLabelFontColor: "black",
-			dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
-		},{
-			color: "rgb(191, 40, 0)",
-			type: "stackedColumn100",
-			name: "Republicans Who Support",
-			indexLabel: "{y}% Agree",
-			indexLabelFontWeight: "bold",
-			indexLabelFontSize: 15,
-			indexLabelFontColor: "black",
-			dataPoints: <?php echo json_encode($dataPoints3, JSON_NUMERIC_CHECK); ?>
-		},{
-			color: "#FFCCBB",
-			type: "stackedColumn100",
-			name: "Republicans Who Oppose",
-			indexLabel: "{y}% Disagree",
-			indexLabelFontWeight: "bold",
-			indexLabelFontSize: 15,
-			indexLabelFontColor: "black",
-			dataPoints: <?php echo json_encode($dataPoints4, JSON_NUMERIC_CHECK); ?>
-		}
-	]
+  axisY: {
+    suffix:"%",
+    maximum:100,
+    minimum:0,
+    title: "Support Rate",
+    labelFontSize: 25
+  },
+  data: [
+  {
+    indexLabel: "{y}% Agree",
+    indexLabelFontWeight: "bold",
+    indexLabelFontSize: 12,
+    indexLabelFontColor: "black",
+    type: "column",
+    showInLegend: true,
+    legendMarkerType: "none",
+		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+  }
+  ]
 });
 
 chart.render();
@@ -311,10 +229,8 @@ chart.render();
 	<!-- ================ BODY ================ -->
 	<!-- <div class="box left"> -->
   <?php
-   if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
-        && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)
-        && $id_carrier != 23 && $id_carrier != 24) {
-    echo '<div class="wrapper5" style="width:100%;">';
+  if (((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1))&&($id_carrier!=23&&$id_carrier!=24)) {
+    echo '<div class="wrapper5" style="width:75% !important; margin:10%; margin-top:0;">';
   }
   else {
     echo '<div class="wrapper5">';
@@ -366,8 +282,12 @@ if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
 	   </div>
   </div>
 	<!-- <div id="chartContainer" class="box right" style="height: 350px; width: 50%; "></div> -->
-  <div id="chartContainer" style="height: 350px; width: 50%; float: right;"></div>
-
+  <?php
+  if (((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1))&&($id_carrier!=23&&$id_carrier!=24)) {
+  }else {
+    echo ('<div id="chartContainer" style="height: 350px; width: 50%; float: right;"></div>');
+  }
+  ?>
 	</div>
 </body>
 
