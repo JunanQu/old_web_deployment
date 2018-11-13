@@ -168,7 +168,6 @@ chart.render();
 
 .reasons_question {
 	margin-top: 20px;
-	opacity: 0.2;
 }
 
 .reason {
@@ -200,6 +199,14 @@ chart.render();
 .reason .desc {
 	flex: 3;
 	margin-left: 10px;
+}
+
+.to_show {
+  opacity: 0.1;
+}
+
+.cont {
+  margin-bottom: 30px;
 }
 </style>
 </head>
@@ -241,16 +248,20 @@ chart.render();
 <?php
 
 $dominant_party = '';
+$nondominant_party = '';
 
 if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   // If more democrats support.
-  $dominant_party = 'democrats';
+  $dominant_party = 'Democrats';
+  $nondominant_party = 'Republicans';
 } else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
   // If more republicans support.
-  $dominant_party = 'republicans';
+  $dominant_party = 'Republicans';
+  $nondominant_party = 'Democrats';
 } else {
   // If equal.
-  $dominant_party = 'neither';
+  $dominant_party = 'Neither';
+  $nondominant_party = 'Neither';
 }
 
 // if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
@@ -270,23 +281,24 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 //     echo "$user_political_id";
 //     echo " players might might answer differently than the other party</p>";
 //   }
-
-
-    echo "
-        <p>
-        <em>Please take 10 seconds to read the statement carefully and think about the
-    		past views of previous participants.
-        </em>
-        </p>
-        <p>Based on the bar chart to the right, pick the reason ";
-    echo "$user_political_id";
-    echo " players might might answer differently than the other party</p>";
 ?>
-
+  <div class="cont to_hide">
     <p>
-      <em>Please take 10 seconds to read the statement carefully and think about the
-         past views of previous participants.</em>
+      <?php
+        if ($dominant_party=='Neither') {
+          echo 'So far, <span class="Democrats">Democrats</span> and <span class="Republicans">Republicans</span> are equally likely to agree with this statement.';
+        } else {
+          echo 'So far, <span class="'.$dominant_party.'>'.$dominant_party.'</span> are more likely than <span class="'.$nondominant_party.'">'.$nondominant_party.'</span> to agree with this statement.';
+        }
+      ?>
     </p>
+    <br>
+    <p>
+      Please take a few moments to read the question carefully and think about
+      why this might be the case.
+    </p>
+  </div>
+  <div class="cont to_show">
     <p>
       Based on the bar chart to the right, pick the reason <?php echo "$user_political_id"?>
       players might might answer differently than the other party.
@@ -315,6 +327,8 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 			</form>
 	   </div>
   </div>
+
+  </div>
 	<!-- <div id="chartContainer" class="box right" style="height: 350px; width: 50%; "></div> -->
   <?php
   if (((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1))&&($id_carrier!=23&&$id_carrier!=24)) {
@@ -331,16 +345,49 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 <script src="script/jquery.backDetect.js"></script>
 <script src="script/back_button.js"></script>
 <script>
-	$(document).ready(function() {
-		console.log('Ready!');
-    	setTimeout(enableQuestion, 5000);
-	});
+$(document).ready(function() {
+	console.log('Ready!');
+	setTimeout(enableQuestion, 7000);
+});
 
-	function enableQuestion() {
-		$(".reasons_question").fadeTo(500, 1);
-		$(".reason").addClass('enabled');
-		$(':input[type="submit"]').prop('disabled', false);
-	}
+function showEl_(elToShow, opt_harshTransition) {
+    let time = opt_harshTransition ? 0 : 1000;
+
+    elToShow.each(function(ind) {
+        let self = $(this);
+        if (self.hasClass('opinion_response')) {
+            // If button (i.e., was just disabled)
+            self.prop('disabled', false);
+            self.fadeTo(time, 1);
+        } else {
+            // If manually obfuscated
+            self.css({
+                visibility: 'visible'
+            }).fadeTo(time, 1);
+        }
+    });
+}
+
+function hideEl_(elToHide, opt_harshTransition) {
+  let time = !!opt_harshTransition ? 0 : 1000;
+
+  elToHide.each(function(ind) {
+    let self = $(this);
+    if (self.hasClass('opinion_response')) {
+      self.prop('disabled', true);
+    }
+    self.fadeTo(time, 0.1);
+  });
+}
+
+function enableQuestion() {
+	$(".reasons_question").fadeTo(500, 1);
+	$(".reason").addClass('enabled');
+	$(':input[type="submit"]').prop('disabled', false);
+
+  showEl_($('.to_show'));
+  hideEl_($('.to_hide'));
+}
 </script>
 <script src="script/canvasjs.min.js"></script>
 
