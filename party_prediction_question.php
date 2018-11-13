@@ -3,6 +3,23 @@ include('test2.php');
 include('proceed.php');
 $preference = $_GET["preference"];
 
+$dominant_party = '';
+$nondominant_party = '';
+
+if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+  // If more democrats support.
+  $dominant_party = 'Democrats';
+  $nondominant_party = 'Republicans';
+} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
+  // If more republicans support.
+  $dominant_party = 'Republicans';
+  $nondominant_party = 'Democrats';
+} else {
+  // If equal.
+  $dominant_party = 'Neither';
+  $nondominant_party = 'Neither';
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -13,7 +30,7 @@ $preference = $_GET["preference"];
 <div class="index-banner1">
 	<div class="header-top">
 		<div class="wrap">
-			<h1 class="content_q"><?php
+			<h1 class="content_q <?php echo $dominant_party ?>"><?php
 			if ($id_carrier == 23){
 				echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion." ;
 			}else if ($id_carrier == 24) {

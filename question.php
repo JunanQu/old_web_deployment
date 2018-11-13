@@ -84,69 +84,28 @@ else if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0
 //   	array("y" => null, "label"=> null ),
 //   );
 // }
+
+$dominant_party = '';
+$nondominant_party = '';
+
+if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+  // If more democrats support.
+  $dominant_party = 'Democrats';
+  $nondominant_party = 'Republicans';
+} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
+  // If more republicans support.
+  $dominant_party = 'Republicans';
+  $nondominant_party = 'Democrats';
+} else {
+  // If equal.
+  $dominant_party = 'Neither';
+  $nondominant_party = 'Neither';
+}
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
 <link href="styles/all.css" rel="stylesheet" type="text/css"/>
-
-<script>
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	title: {
-		margin:20,
-		<?php
-		if(($support_num_of_demo_percent == 0 || $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-			$oppo_stand = "Republican";
-		}else{
-			$oppo_stand = "Democratic";
-		}
-		if($id_carrier == 23 || $id_carrier == 24){
-			echo "text: 'Percent who agree, by political party'";
-		}else if ($all_demo_in_world == 0 OR $all_republican_in_world == 0){
-			echo "text: 'So far, all the participants have been from the ".$oppo_stand." Party'";
-		}else{
-			echo "text: 'Percent who agree, by political party',";
-		}?>
-		// text: "So far, <?php echo ($all_demo_in_world); ?> Democrats and <?php echo ($all_republican_in_world); ?> Republicans have responded to this question. Here are their responses:"
-	},
-	animationEnabled: true,
-	toolTip:{
-		shared: false,
-		reversed: false
-	},
-	interactivityEnabled: false,
-	axisX: {
-	labelFontSize: 15
-	},
-  axisY: {
-    suffix:"%",
-    maximum:100,
-    minimum:0,
-    title: "Support Rate",
-    labelFontSize: 25
-  },
-  data: [
-  {
-    indexLabel: "{y}% Agree",
-    indexLabelFontWeight: "bold",
-    indexLabelFontSize: 12,
-    indexLabelFontColor: "black",
-    type: "column",
-    showInLegend: true,
-    legendMarkerType: "none",
-		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-  }
-  ]
-});
-
-chart.render();
-
-}
-</script>
-
-
 <style>
 .left {
 	float: left;
@@ -208,6 +167,11 @@ chart.render();
 .cont {
   margin-bottom: 30px;
 }
+
+.reasons_question {
+  max-width: 500px;
+  margin-left: calc(50% - 250px);
+}
 </style>
 </head>
 <body>
@@ -215,7 +179,7 @@ chart.render();
 	<div class="index-banner1">
 		<div class="header-top">
 			<div class="wrap">
-				<h1 class="content_q"><?php
+				<h1 class="content_q <?php echo $dominant_party ?>"><?php
 				if ($id_carrier == 23) {
 					echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion.";
 				} else if ($id_carrier == 24) {
@@ -234,61 +198,14 @@ chart.render();
 	</div>
 
 	<!-- ================ BODY ================ -->
-	<!-- <div class="box left"> -->
-  <?php
-  if (((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1))&&($id_carrier!=23&&$id_carrier!=24)) {
-    echo '<div class="wrapper5" style="width:75% !important; margin:10%; margin-top:0;">';
-  }
-  else {
-    echo '<div class="wrapper5">';
-  }
- ?>
-  <!-- <div class="wrapper5" style="width:100% !important;"> -->
-
-<?php
-
-$dominant_party = '';
-$nondominant_party = '';
-
-if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
-  // If more democrats support.
-  $dominant_party = 'Democrats';
-  $nondominant_party = 'Republicans';
-} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
-  // If more republicans support.
-  $dominant_party = 'Republicans';
-  $nondominant_party = 'Democrats';
-} else {
-  // If equal.
-  $dominant_party = 'Neither';
-  $nondominant_party = 'Neither';
-}
-
-// if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
-//     && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)
-//     && $id_carrier != 23 && $id_carrier != 24) {
-// 		echo "<p>Pick the reason ";
-//     echo "$user_political_id";
-//     echo " players might answer differently than the other party.</p>";
-//   } else {
-//     echo "
-//         <p>
-//         <em>Please take 10 seconds to read the statement carefully and think about the
-//     		past views of previous participants.
-//         </em>
-//         </p>
-//         <p>Based on the bar chart to the right, pick the reason ";
-//     echo "$user_political_id";
-//     echo " players might might answer differently than the other party</p>";
-//   }
-?>
+<div class="wrapper5" style="width:100% !important;">
   <div class="cont to_hide">
     <p>
       <?php
         if ($dominant_party=='Neither') {
           echo 'So far, <span class="Democrats">Democrats</span> and <span class="Republicans">Republicans</span> are equally likely to agree with this statement.';
         } else {
-          echo 'So far, <span class="'.$dominant_party.'>'.$dominant_party.'</span> are more likely than <span class="'.$nondominant_party.'">'.$nondominant_party.'</span> to agree with this statement.';
+          echo 'So far, <span class="'.$dominant_party.'">'.$dominant_party.'</span> are more likely than <span class="'.$nondominant_party.'">'.$nondominant_party.'</span> to agree with this statement.';
         }
       ?>
     </p>
@@ -327,16 +244,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 			</form>
 	   </div>
   </div>
-
-  </div>
-	<!-- <div id="chartContainer" class="box right" style="height: 350px; width: 50%; "></div> -->
-  <?php
-  if (((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1))&&($id_carrier!=23&&$id_carrier!=24)) {
-  }else {
-    echo ('<div id="chartContainer" style="height: 350px; width: 50%; float: right;"></div>');
-  }
-  ?>
-	</div>
+</div>
 </body>
 
 <!-- ================ IMPORTS ================ -->

@@ -134,7 +134,8 @@ button[type="submit"]:hover {
 	margin:0 auto;
 }
 .header-top{
-	background:#696969;
+	/* background:#696969; */
+  color: black;
 }
 .menu{
 	float:right;
@@ -231,10 +232,6 @@ body{
 	right: 20%;
 	font-size: 20px;
 	text-align: center;
-}
-
-.wrap h1, h2{
-	color: white;
 }
 
 .clear_chart{
@@ -335,4 +332,20 @@ margin-bottom: 7%;
 
 .Republicans {
   color: red;
+}
+
+.Neither {
+  color: purple;
+}
+
+button.Democrats_bkg {
+  background: blue;
+}
+
+button.Republicans_bkg {
+  background: red;
+}
+
+button.Neither_bkg {
+  background: purple;
 }

@@ -9,7 +9,7 @@ button.opinion_response {
     margin: 0 20px;
     box-sizing: border-box;
     width: 30%;
-    background: #696969;
+    /* background: #696969; */
     color: white;
     text-transform: uppercase;
     font-size: 14px;

@@ -21,6 +21,24 @@ if(!($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
     $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
   }
 }
+
+$dominant_party = '';
+$nondominant_party = '';
+
+if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+  // If more democrats support.
+  $dominant_party = 'Democrats';
+  $nondominant_party = 'Republicans';
+} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
+  // If more republicans support.
+  $dominant_party = 'Republicans';
+  $nondominant_party = 'Democrats';
+} else {
+  // If equal.
+  $dominant_party = 'Neither';
+  $nondominant_party = 'Neither';
+}
+
 $preference = $_GET["preference"];
 // if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num_of_repub_percent==0&&$oppose_num_of_repub_percent==0){
 //   $dataPoints = array(
@@ -93,7 +111,7 @@ else if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0
 <div class="index-banner1">
 	<div class="header-top">
 		<div class="wrap">
-			<h1 class="content_q"><?php
+			<h1 class="content_q <?php echo $dominant_party ?>"><?php
 			if ($id_carrier == 23){
 				echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion." ;
 			}else if ($id_carrier == 24) {
@@ -110,61 +128,6 @@ else if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0
 		 </div>
 	</div>
 </div>
-
-<script>
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	title: {
-		margin:20,
-		<?php
-		if(($support_num_of_demo_percent == 0 || $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-			$oppo_stand = "Republican";
-		}else{
-			$oppo_stand = "Democratic";
-		}
-		if($id_carrier == 23 || $id_carrier == 24){
-			echo "text: 'Percent who agree, by political party',";
-		}else if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) || ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)){
-			echo "text: 'So far, all the participants have been from the ".$oppo_stand." Party'";
-		}else{
-			echo "text: 'Percent who agree, by political party',";
-		}?>
-	},
-	animationEnabled: true,
-	toolTip:{
-		shared: false,
-		reversed: false
-	},
-	interactivityEnabled: false,
-  axisY: {
-    suffix:"%",
-    maximum:100,
-    minimum:0,
-    title: "Support Rate",
-    labelFontSize: 25
-  },
-	data: [{
-    indexLabel: "{y}% Agree",
-    indexLabelFontWeight: "bold",
-    indexLabelFontSize: 12,
-    indexLabelFontColor: "black",
-		type: "column",
-		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-  	}]
-});
-chart.render();
-$(window).resize(function() {
-
-    for(var i = 0; i < chart.options.axisX.labelFontSize; i++){
-				chart.options.axisX.labelFontSize = Math.min(20, Math.max(12, $("#chartContainer").width() /15));
-
-    }
-    chart.render();
-});
-}
-
-</script>
 </head>
 <body>
 
@@ -173,15 +136,9 @@ $(window).resize(function() {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
+<div class="wrapper5" style="width:75% !important; margin:10%; margin-top:0;">
 
 <?php
-if (((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1))&&($id_carrier!=23&&$id_carrier!=24)) {
-  echo '<div class="wrapper5" style="width:75% !important; margin:10%; margin-top:0;">';
-}
-else {
-  echo '<div class="wrapper5">';
-}
-
 $form_universal_tag = '<form class="form_i" id="question_box" ';
 
 if($id_carrier == 24 || $id_carrier == 23){
@@ -208,7 +165,7 @@ if($id_carrier == 24 || $id_carrier == 23){
     <p class="question_text initially_hide">You may now answer the question.</p>
 
     <p class="question_text initially_hide">
-      As a <?php echo "$user_political_id" ?>, do you agree with the opinions of previous participants from your party?
+      As a <?php echo "$user_political_id" ?>, do you agree or disagree with this statement?
     </p>
     <br/><br/>
 
@@ -219,10 +176,10 @@ if($id_carrier == 24 || $id_carrier == 23){
     <!-- Buttons for user to choose between. This will auto-populate the hidden
          field on the client side. -->
     </fieldset>
-    <button id="agree" class="opinion_response initially_hide" value="agree" disabled>
+    <button id="agree" class="opinion_response initially_hide <?php echo $dominant_party ?>_bkg" value="agree" disabled>
         I agree.
     </button>
-    <button id="disagree" class="opinion_response initially_hide" value="disagree" disabled>
+    <button id="disagree" class="opinion_response initially_hide <?php echo $nondominant_party ?>_bkg" value="disagree" disabled>
         I disagree.
     </button>
 </form>
