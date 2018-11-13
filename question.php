@@ -239,13 +239,39 @@ chart.render();
   <!-- <div class="wrapper5" style="width:100% !important;"> -->
 
 <?php
-if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
-    && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)
-    && $id_carrier != 23 && $id_carrier != 24) {
-		echo "<p>Pick the reason ";
-    echo "$user_political_id";
-    echo " players might answer differently than the other party.</p>";
-  } else {
+
+$dominant_party = '';
+
+if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+  // If more democrats support.
+  $dominant_party = 'democrats';
+} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
+  // If more republicans support.
+  $dominant_party = 'republicans';
+} else {
+  // If equal.
+  $dominant_party = 'neither';
+}
+
+// if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
+//     && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)
+//     && $id_carrier != 23 && $id_carrier != 24) {
+// 		echo "<p>Pick the reason ";
+//     echo "$user_political_id";
+//     echo " players might answer differently than the other party.</p>";
+//   } else {
+//     echo "
+//         <p>
+//         <em>Please take 10 seconds to read the statement carefully and think about the
+//     		past views of previous participants.
+//         </em>
+//         </p>
+//         <p>Based on the bar chart to the right, pick the reason ";
+//     echo "$user_political_id";
+//     echo " players might might answer differently than the other party</p>";
+//   }
+
+
     echo "
         <p>
         <em>Please take 10 seconds to read the statement carefully and think about the
@@ -255,8 +281,16 @@ if (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0)
         <p>Based on the bar chart to the right, pick the reason ";
     echo "$user_political_id";
     echo " players might might answer differently than the other party</p>";
-  }
 ?>
+
+    <p>
+      <em>Please take 10 seconds to read the statement carefully and think about the
+         past views of previous participants.</em>
+    </p>
+    <p>
+      Based on the bar chart to the right, pick the reason <?php echo "$user_political_id"?>
+      players might might answer differently than the other party.
+    </p>
 		<div class="reasons_question">
 			<form action="party_prediction_question.php?preference=1" method="post">
 				<div class="reason">
