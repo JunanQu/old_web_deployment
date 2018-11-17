@@ -59,31 +59,6 @@ $preference = $_GET["preference"];
 // }else
 // if (($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
 var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
-if ($id_carrier == 23){
-  echo "23";
-  $dataPoints = array(
-  	array("y" => 12, "label" => "Democrats" ),
-  	array("y" => 88, "label" => "Republicans" ),
-  );
-}else if($id_carrier == 24){
-  echo "24";
-  $dataPoints = array(
-  	array("y" => 91, "label" => "Democrats" ),
-  	array("y" => 9, "label" => "Republicans" ),
-  );
-}
-else if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1)) {
-  echo "null";
-  $dataPoints = array(
-    array("y" => null, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
-    array("y" => null, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
-  );
-}else{
-  $dataPoints = array(
-  	array("y" => $support_rate_of_demo_percent, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
-  	array("y" => $support_rate_of_repub_percent, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
-  );
-}
 // }
 // else if(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
 //   $dataPoints = array(
@@ -170,8 +145,8 @@ if($id_carrier == 24 || $id_carrier == 23){
     <br/><br/>
 
     <!-- This is a hidden field that is used to pass data to the back-end. -->
-    <input type="hidden" name="user_response" id="user_response" >
-    <input type="hidden" name="user_time" id="user_time" >
+    <input type="hidden" name="user_response_agreement" id="user_response_agreement" >
+    <input type="hidden" name="user_time_agreement" id="user_time_agreement" >
 
     <!-- Buttons for user to choose between. This will auto-populate the hidden
          field on the client side. -->
@@ -214,10 +189,10 @@ $('.opinion_response').click((event) => {
 
     if (CAN_SUBMIT && !WAS_SUBMITTED && responseVal != '') {
         // Populate hidden input field that stores 'agree' or 'disagree'.
-        $('.user_response').val(responseVal);
-        $('.user_time').val(timeVal);
-        document.getElementById('user_response').value = responseVal;
-        document.getElementById('user_time').value = timeVal;
+        $('.user_response_agreement').val(responseVal);
+        $('.user_time_agreement').val(timeVal);
+        document.getElementById('user_response_agreement').value = responseVal;
+        document.getElementById('user_time_agreement').value = timeVal;
 
         console.log('Populating response with ' + responseVal);
         console.log('Populating time with ' + timeVal);

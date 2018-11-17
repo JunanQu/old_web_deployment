@@ -220,6 +220,7 @@
           $current_user = check_login();
           $id_carrier = check_question_id();
         }
+
         if (isset($_POST['ideology'])){
           exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'ideology') ");
         }elseif (isset($_POST['history'])){
@@ -258,33 +259,13 @@
           $id_carrier = check_question_id();
         }
 
-
-        // $check_if_answered = exec_sql_query($myPDO, "SELECT user_response FROM user_question_world_answer WHERE (user_id LIKE '$current_user' AND question_id LIKE '$previous_one')")->fetchAll();
-        // var_dump($check_if_answered[0]['user_response']);
-        // if (($check_if_answered[0]['user_response'])!= null) {
-        //     if (isset($_POST['ideology'])){
-        //         exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'ideology') ");
-        //       // exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_which_party = 'Democrats'  WHERE user_id = '$current_user' AND question_id = '$id_carrier'");
-        //     }elseif (isset($_POST['history'])){
-        //       exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'history') ");
-        //       // exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_which_party = 'Republicans'  WHERE user_id = '$current_user'AND question_id = '$id_carrier'");
-        //     }elseif (isset($_POST['popularity'])){
-        //       exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'popularity') ");
-        //       // exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_which_party = 'Republicans'  WHERE user_id = '$current_user'AND question_id = '$id_carrier'");
-        //     }
-        //   }
-        //   if($id_carrier == 23|| $id_carrier == 24) {
-        //   if (isset($_POST['ideology'])){
-        //       exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'ideology') ");
-        //     // exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_which_party = 'Democrats'  WHERE user_id = '$current_user' AND question_id = '$id_carrier'");
-        //   }elseif (isset($_POST['history'])){
-        //     exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'history') ");
-        //     // exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_which_party = 'Republicans'  WHERE user_id = '$current_user'AND question_id = '$id_carrier'");
-        //   }elseif (isset($_POST['popularity'])){
-        //     exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'popularity') ");
-        //     // exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_which_party = 'Republicans'  WHERE user_id = '$current_user'AND question_id = '$id_carrier'");
-        //   }
-        // }
+        if (isset($_POST['ideology'])){
+          exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'ideology') ");
+        }elseif (isset($_POST['history'])){
+          exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'history') ");
+        }elseif (isset($_POST['popularity'])){
+          exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, reason) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', 'popularity') ");
+        }
       }
 
       $previous_one = get_previous_one();
@@ -403,33 +384,47 @@
     }
 
 
-      $email;$comment;$captcha;
-      if(isset($_POST['g-recaptcha-response'])){
-        $captcha=$_POST['g-recaptcha-response'];
-      if(!$captcha){
-        echo '<h2>Please check the the captcha form.</h2>';
-        exit;
+    $email;$comment;$captcha;
+    if(isset($_POST['g-recaptcha-response'])){
+      $captcha=$_POST['g-recaptcha-response'];
+    if(!$captcha){
+      echo '<h2>Please check the the captcha form.</h2>';
+      exit;
+    }
+
+    $secretKey = "6LffU3AUAAAAANsnakR3xxOfz7k_uRG3hkvQv5Yh";
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
+    $responseKeys = json_decode($response,true);
+    if(intval($responseKeys["success"]) !== 1) {
+      echo '<h2>You are spammer! </h2>';
       }
+    }
 
-      $secretKey = "6LffU3AUAAAAANsnakR3xxOfz7k_uRG3hkvQv5Yh";
-      $ip = $_SERVER['REMOTE_ADDR'];
-      $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
-      $responseKeys = json_decode($response,true);
-      if(intval($responseKeys["success"]) !== 1) {
-        echo '<h2>You are spammer! </h2>';
-        }
-      }
+    if(isset($_POST['user_response'])&&isset($_POST['user_time'])){
+    $user_response = $_POST['user_response'];
+    $user_time = $_POST['user_time'];
+    var_dump($current_user,$id_carrier,$user_response,$user_time);
+    exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_response = '$user_response' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
+    exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_time_spent = '$user_time' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
+    $current_user = check_login();
+    $id_carrier = check_question_id();
+    }
 
-      if(isset($_POST['user_response'])&&isset($_POST['user_time'])){
-      $user_response = $_POST['user_response'];
-      $user_time = $_POST['user_time'];
-      exec_sql_query($myPDO, "INSERT INTO user_question_world_answer (user_id, world_id, question_id, user_political_stand, user_time_spent) VALUES ('$current_user', '$current_user_world_id', '$id_carrier', '$user_response','$user_time') ");
-      $current_user = check_login();
-      $id_carrier = check_question_id();
-      }
+    if(isset($_POST['user_response_agreement'])&&isset($_POST['user_time_agreement'])){
+    $user_response = $_POST['user_response_agreement'];
+    $current_time =  exec_sql_query($myPDO, "SELECT user_time_spent FROM user_question_world_answer WHERE user_id = '$current_user' AND question_id = '$previous_one'")->fetchAll();
+
+    $user_time = (float)$_POST['user_time_agreement']+(float)$current_time;
+    var_dump($current_time,$current_user,$previous_one,$user_response,$user_time);
+    exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_political_stand = '$user_response' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
+    exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_time_spent = '$user_time' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
+    $current_user = check_login();
+    $id_carrier = check_question_id();
+    }
 
 
-      $records2 = exec_sql_query($myPDO, "SELECT question_id FROM user_question_world_answer  WHERE user_id='". $current_user. "'")->fetchAll();
-      $current_seq_by_count = COUNT($records2);
+    $records2 = exec_sql_query($myPDO, "SELECT question_id FROM user_question_world_answer  WHERE user_id='". $current_user. "'")->fetchAll();
+    $current_seq_by_count = COUNT($records2);
 
 ?>
