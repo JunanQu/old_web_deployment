@@ -40,7 +40,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   			if ($records) {
   				// echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
           // Removes the question number in the title.
-          echo('"'.$records['question_content'].'"');
+          // echo('"'.$records['question_content'].'"');
 				}
 			};
       ?></h1>
@@ -160,9 +160,8 @@ function showEl_(elToShow, opt_harshTransition) {
         let self = $(this);
         if (self.hasClass('opinion_response')) {
             // If button (i.e., was just disabled)
-            self.fadeTo(time, 1, () => {
-              self.prop('disabled', false);
-            });
+            self.prop('disabled', false);
+            self.fadeTo(time, 1);
         } else {
             // If manually obfuscated
             self.css({
