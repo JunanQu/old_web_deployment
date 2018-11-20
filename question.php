@@ -41,7 +41,7 @@ $preference = $_GET["preference"];
 //   );
 // }else
 // if (($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
+// var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
 if ($id_carrier == 23){
   echo "23";
   $dataPoints = array(
@@ -188,7 +188,9 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 					$records = exec_sql_query($myPDO,
 							"SELECT question_content FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
 					if ($records) {
-						echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
+						// echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
+            // Removes the question number in the title.
+            echo('"'.$records['question_content'].'"');
 					}
 				};
 	      ?></h1>
@@ -222,24 +224,34 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
     </p>
 		<div class="reasons_question">
 			<form action="party_prediction_question.php?preference=1" method="post">
+        <!-- IDEOLOGY -->
 				<div class="reason">
 					<input name="ideology" type="submit" class="reason_button" value="ideology" disabled>
 					</input>
 					<div class="desc">
-						Because the issue involves <?php echo "$user_political_id" ?> party values (liberal vs. conservative).
+						Because the issue involves <?php echo "$user_political_id" ?> party
+            values (liberal vs. conservative).
 					</div>
 				</div>
+
+        <!-- HISTORY -->
 				<div class="reason">
 					<input name="history" type="submit" class="reason_button" value="history" disabled>
 					</input>
-					<div class="desc">Because the issue involves historical <?php echo "$user_political_id" ?> party
-						positions.</div>
+					<div class="desc">
+            Because the issue involves historical <?php echo "$user_political_id" ?> party
+						positions.
+          </div>
 				</div>
+
+        <!-- POPULARITY -->
 				<div class="reason">
 					<input name="popularity" type="submit" class="reason_button" value="popularity" disabled>
 					</input>
-					<div class="desc">Because the issue is important to the <?php echo "$user_political_id" ?>
-						party’s core political base.</div>
+					<div class="desc">
+            Because the issue is important to the <?php echo "$user_political_id" ?>
+						party’s core political base.
+          </div>
 				</div>
 			</form>
 	   </div>

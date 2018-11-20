@@ -16,6 +16,11 @@ body{
 	min-height: 100vh;
 }
 
+footer p.note {
+  font-size: 0.8em;
+  padding: 20px;
+}
+
 .wrapper {
     width: 450px;
     margin: auto;
@@ -48,9 +53,8 @@ body{
     margin: auto;
 		display: inline-block;
     text-align: center;
-    padding: 3% 0px;
+    padding: 20px 0px;
     background-color: #fff;
-		/* margin-top: 30%; */
 }
 
 
@@ -133,8 +137,11 @@ button[type="submit"]:hover {
 	width:100%;
 	margin:0 auto;
 }
+.gray-banner .header-top {
+  background:#696969;
+  color: white;
+}
 .header-top{
-	/* background:#696969; */
   color: black;
 }
 .menu{
@@ -317,11 +324,6 @@ margin-bottom: 7%;
 
 .form_i{
 	float: left !important;
-}
-
-.wrapper5{
-	width: 45%;
-	margin-left: 5%;
 }
 
 /** Party styling */

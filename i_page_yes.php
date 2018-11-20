@@ -58,7 +58,10 @@ $preference = $_GET["preference"];
 //   );
 // }else
 // if (($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
+
+// ============================== VAR DUMP ==============================
+// var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
+
 // }
 // else if(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
 //   $dataPoints = array(
@@ -86,19 +89,23 @@ var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_o
 <div class="index-banner1">
 	<div class="header-top">
 		<div class="wrap">
-			<h1 class="content_q <?php echo $dominant_party ?>"><?php
-			if ($id_carrier == 23){
-				echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion." ;
-			}else if ($id_carrier == 24) {
-				echo "PRACTICE QUESTION: The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished." ;
-			}else{
-			$records = exec_sql_query($myPDO, "SELECT question_content,id FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
-			if($records){
-				echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
-				}
-			};
-      ?></h1>
-			<h2> </h2>
+			<h1 class="content_q <?php echo $dominant_party ?>">
+        <?php
+    			if ($id_carrier == 23){
+    				echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion." ;
+    			} else if ($id_carrier == 24) {
+    				echo "PRACTICE QUESTION: The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished." ;
+    			} else {
+    		    $records = exec_sql_query($myPDO, "SELECT question_content,id FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
+      			if ($records) {
+      				// echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
+              // Removes the question number in the title.
+              echo('"'.$records['question_content'].'"');
+    				}
+    			};
+        ?>
+      </h1>
+			<h2></h2>
 			<div class="clear_chart"></div>
 		 </div>
 	</div>

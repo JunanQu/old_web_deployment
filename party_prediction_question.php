@@ -3,6 +3,23 @@ include('test2.php');
 include('proceed.php');
 $preference = $_GET["preference"];
 
+$dominant_party = '';
+$nondominant_party = '';
+
+if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+  // If more democrats support.
+  $dominant_party = 'Democrats';
+  $nondominant_party = 'Republicans';
+} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
+  // If more republicans support.
+  $dominant_party = 'Republicans';
+  $nondominant_party = 'Democrats';
+} else {
+  // If equal.
+  $dominant_party = 'Neither';
+  $nondominant_party = 'Neither';
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -13,15 +30,17 @@ $preference = $_GET["preference"];
 <div class="index-banner1">
 	<div class="header-top">
 		<div class="wrap">
-			<h1 class="content_q"><?php
+			<h1 class="content_q <?php echo $dominant_party ?>"><?php
 			if ($id_carrier == 23){
 				echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion." ;
 			}else if ($id_carrier == 24) {
 				echo "PRACTICE QUESTION: The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished." ;
-			}else{
-			$records = exec_sql_query($myPDO, "SELECT question_content,id FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
-			if($records){
-				echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
+			} else {
+  			$records = exec_sql_query($myPDO, "SELECT question_content,id FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
+  			if ($records) {
+  				// echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
+          // Removes the question number in the title.
+          echo('"'.$records['question_content'].'"');
 				}
 			};
       ?></h1>
@@ -77,7 +96,9 @@ if($id_carrier == 24 || $id_carrier == 23){
 </form>
 </div>
 <footer>
-  <p>*$100 to the player with the most accurate predictions, based on results from a previously conducted survey (to be divided equally in case of ties)
+  <p class="note">
+    *$100 to the player with the most accurate predictions, based on results
+    from a previously conducted survey (to be divided equally in case of ties).
   </p>
 </footer>
 </body>
@@ -87,7 +108,7 @@ let WAS_SUBMITTED = false;
 let CAN_SUBMIT = false;
 var USER_START_TIME = -1;
 var USER_END_TIME = -1;
-const QUESTION_FADE_TIME = 4; // Number of seconds it should take for Q to appear.
+const QUESTION_FADE_TIME = 3; // Number of seconds it should take for Q to appear.
 
 $(document).ready(function() {
     USER_START_TIME = performance.now();

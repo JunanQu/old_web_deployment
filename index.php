@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <div class="index-banner1">
+    <div class="index-banner1 gray-banner">
       <div class="header-top">
         <div class="wrap">
 
