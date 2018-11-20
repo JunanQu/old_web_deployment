@@ -160,8 +160,9 @@ function showEl_(elToShow, opt_harshTransition) {
         let self = $(this);
         if (self.hasClass('opinion_response')) {
             // If button (i.e., was just disabled)
-            self.prop('disabled', false);
-            self.fadeTo(time, 1);
+            self.fadeTo(time, 1, () => {
+              self.prop('disabled', false);
+            });
         } else {
             // If manually obfuscated
             self.css({
