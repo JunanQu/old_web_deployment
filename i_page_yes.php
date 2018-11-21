@@ -1,27 +1,5 @@
 <?php
 include('test2.php');
-if (!$num_of_users<=1 && !(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0))) {
-
-if ($support_rate_of_demo_percent >= 95){
-  $support_rate_of_demo_percent = rand(95,98);
-  $oppose_rate_of_demo_percent = 100-$support_rate_of_demo_percent;
-}
-if ($support_rate_of_demo_percent <= 5){
-  $support_rate_of_demo_percent = rand(1,5);
-  $oppose_rate_of_demo_percent = 100-$support_rate_of_demo_percent;
-}
-}
-if(!($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
-  if($support_rate_of_repub_percent >= 95){
-    $support_rate_of_repub_percent = rand(95,98);
-    $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
-  }
-  if($support_rate_of_repub_percent <= 5){
-    $support_rate_of_repub_percent = rand(1,5);
-    $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
-  }
-}
-
 $dominant_party = '';
 $nondominant_party = '';
 
@@ -40,45 +18,6 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 }
 
 $preference = $_GET["preference"];
-// if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num_of_repub_percent==0&&$oppose_num_of_repub_percent==0){
-//   $dataPoints = array(
-//   	array("y" => null, "label" => "Democrats" ),
-//   	array("y" => null, "label" => "Republicans" ),
-//   );
-//
-// }else if ($id_carrier == 23){
-//   $dataPoints = array(
-//   	array("y" => 12, "label" => "Democrats" ),
-//   	array("y" => 88, "label" => "Republicans" ),
-//   );
-// }else if($id_carrier == 24){
-//   $dataPoints = array(
-//     array("y" => 91, "label" => "Democrats" ),
-//     array("y" => 12, "label" => "Republicans" ),
-//   );
-// }else
-// if (($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-
-// ============================== VAR DUMP ==============================
-// var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
-
-// }
-// else if(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-//   $dataPoints = array(
-//   	array("y" => null, "label"=> " " ),
-//   	array("y" => $support_rate_of_repub_percent, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
-//   );
-// }else if(($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0) && ($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0)){
-//   $dataPoints = array(
-//   	array("y" => $support_rate_of_demo_percent, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
-//   	array("y" => null, "label"=> " " ),
-//   );
-// }else{
-//   $dataPoints = array(
-//   	array("y" => null, "label"=> null),
-//   	array("y" => null, "label"=> null ),
-//   );
-// }
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -91,18 +30,21 @@ $preference = $_GET["preference"];
 		<div class="wrap">
 			<h1 class="content_q <?php echo $dominant_party ?>">
         <?php
-    			if ($id_carrier == 23){
-    				echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion." ;
-    			} else if ($id_carrier == 24) {
-    				echo "PRACTICE QUESTION: The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished." ;
-    			} else {
-    		    $records = exec_sql_query($myPDO, "SELECT question_content,id FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
-      			if ($records) {
-      				// echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
-              // Removes the question number in the title.
-              echo('"'.$records['question_content'].'"');
-    				}
-    			};
+        if ($id_carrier == 23) {
+          echo "<span style='color:black'>PRACTICE QUESTION: </span>";
+          echo "<span style='color:red'>The Supreme Court has gone too far in liberalizing access to abortion.</span>";
+        } else if ($id_carrier == 24) {
+          echo "<span style='color:black'>PRACTICE QUESTION: </span>";
+          echo "<span style='color:red'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
+        } else {
+          $records = exec_sql_query($myPDO,
+              "SELECT question_content FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
+          if ($records) {
+            // echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
+            // Removes the question number in the title.
+            echo('"'.$records['question_content'].'"');
+          }
+        };
         ?>
       </h1>
 			<h2></h2>
@@ -132,22 +74,18 @@ if($id_carrier == 24 || $id_carrier == 23){
 	echo $form_universal_tag, 'action="game_start.php" method="post">';
   }
 }else{
-  if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1)) {
-    // echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
-    echo $form_universal_tag, 'style="width:100% !important;" action="question.php?preference=1" method="post">';
-  }else{
-    // echo $form_universal_tag, 'action="i_page_yes.php?preference=1" method="post">';
-    echo $form_universal_tag, 'action="question.php?preference=1" method="post">';
-  }
+  echo $form_universal_tag, 'style="width:100% !important;" action="question.php?preference=1" method="post">';
+
 }
 ?>
     <p class="question_text initially_show">
-      Please take a few moments to read the statement carefully and think about your response.
+      Finally, we would like to know your own individual opinion.
     </p>
-    <p class="question_text initially_hide">You may now answer the question.</p>
 
     <p class="question_text initially_hide">
-      As a <?php echo "$user_political_id" ?>, do you agree or disagree with this statement?
+      As a <?php echo "$user_political_id" ?>,
+      <br/>
+      do you agree or disagree with this statement?
     </p>
     <br/><br/>
 

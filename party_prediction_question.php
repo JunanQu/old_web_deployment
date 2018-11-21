@@ -31,18 +31,21 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 	<div class="header-top">
 		<div class="wrap">
 			<h1 class="content_q <?php echo $dominant_party ?>"><?php
-			if ($id_carrier == 23){
-				echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion." ;
-			}else if ($id_carrier == 24) {
-				echo "PRACTICE QUESTION: The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished." ;
-			} else {
-  			$records = exec_sql_query($myPDO, "SELECT question_content,id FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
-  			if ($records) {
-  				// echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
+      if ($id_carrier == 23) {
+        echo "<span style='color:black'>PRACTICE QUESTION: </span>";
+        echo "<span style='color:red'>The Supreme Court has gone too far in liberalizing access to abortion.</span>";
+      } else if ($id_carrier == 24) {
+        echo "<span style='color:black'>PRACTICE QUESTION: </span>";
+        echo "<span style='color:red'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
+      } else {
+        $records = exec_sql_query($myPDO,
+            "SELECT question_content FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
+        if ($records) {
+          // echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
           // Removes the question number in the title.
-          // echo('"'.$records['question_content'].'"');
-				}
-			};
+          echo('"'.$records['question_content'].'"');
+        }
+      };
       ?></h1>
 			<h2> </h2>
 			<div class="clear_chart"></div>
@@ -66,7 +69,6 @@ echo '<div class="wrapper5" style="width:75% !important; margin:10%; margin-top:
 $form_universal_tag = '<form class="form_i" id="question_box" ';
 
 if($id_carrier == 24 || $id_carrier == 23){
-  if (($current_user_world_id==1))
     echo $form_universal_tag, 'style="width:100% !important;" action="game_start.php" method="post">';
 }else{
     echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';

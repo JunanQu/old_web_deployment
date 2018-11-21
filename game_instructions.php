@@ -25,64 +25,58 @@
 
     <div class="wrapper" id="consent">
        <form action="political_id.php" method="post">
-         <p>
+         <p class="instruction_title">
            <strong>
-             Please read each of the following items and check the box next to them. You will be able to continue once you have read and checked off each item.
+             Please read each of the following instructions and check the box next to them.
+             <br/>
+             You will be able to continue once you have read and checked off each item.
            </strong>
          </p>
          <p>
-             <input type="checkbox" class="item">
-             You will see 15 statements about various political and cultural
-             beliefs (plus a practice question that does not count).
+             You will see 15 opinions about novel political and cultural issues. For each issue, you will:
          </p>
 
-         <p>
+         <p class="item1">
            <input type="checkbox" class="item">
-           For each statement, we will ask you to predict
-           <strong>the reason</strong> players from your party might give for why your party might agree or disagree with that statement: ideology, history, or popularity.
+           See the opinions of previous players from each political party.
          </p>
-
-         <p>
+         <p class="item2">
              <input type="checkbox" class="item">
-             At the end of the game, the player with the most accurate predictions
-             will win $100, divided equally in case of ties.
+             Choose the most likely reason for your party's opinion: ideaology, history, or popularity.
          </p>
 
-        <!-- <p style="margin-bottom: 0px;"><strong>For each statement:</strong></p> -->
+         <p class="item3">
+           <input type="checkbox" class="item">
+           Predict which political party is more likely to agree.
+         </p>
+         <p class="item4">
+           <input type="checkbox" class="item">
+          The player with the most accurate predictions will win $100, divided equally in case of ties. Accuracy will be judged using previously collected survey data.
+         </p>
 
-        <!-- <p>
-         <input type="checkbox" class="item">
-         You will see the views of previous participants from each political
-         party.
+         <p class="item5">
+           <input type="checkbox" class="item">
+           Indicate whether you personally agree or disagree with the opinion.
+         </p>
 
-        </p> -->
-
-
-       <p>
-         <input type="checkbox" class="item">
-         For each statement, we will ask you to indicate whether you
-         personally agree or disagree with the the statement.
-       </p>
-
-     <b>In addition:</b></br>
-
-     <p>
-       <input type="checkbox" class="item">
-       PLEASE DO NOT PRESS THE BACK BUTTON ON YOUR BROWSER! This may
-       erase your data, causing you to be unpaid for your participation.
-     </p>
+         <p class="item6">
+           <input type="checkbox" class="item">
+           PLEASE DO NOT PRESS THE BACK BUTTON ON YOUR BROWSER! This may erase your data.
+         </p>
 
      <p>
-         <b>When you have read these instructions, please check the box below
-         and press continue:</b>
+         When you have read these instructions, please check the box below
+         and press continue:
          <br/>
-
          <input type="checkbox" class="item">
          I have carefully read the instructions and am ready to continue
          with the test.
      </p>
 
-           <input type="submit" class="button" id="submitButton" value="Continue" disabled>
+     <p class="continue_label">
+       <strong>Click "CONTINUE" when you are ready to begin the game.</strong>
+     </p>
+           <input type="submit" class="button" id="submitButton" value="CONTINUE" disabled>
         </form>
     </div>
 </body>

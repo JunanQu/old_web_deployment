@@ -258,3 +258,23 @@ footer{
   bottom: 15px;
   position: absolute;
 }
+
+.instruction_title{
+  text-align: center;
+}
+
+.item1{
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.item2{
+  margin-top: 0;
+}
+
+.item3{
+  margin-bottom: 0;
+}
+
+.item4{
+  margin-top: 0;
+}

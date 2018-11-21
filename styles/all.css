@@ -351,3 +351,7 @@ button.Republicans_bkg {
 button.Neither_bkg {
   background: purple;
 }
+
+.underline{
+  text-decoration: underline;
+}

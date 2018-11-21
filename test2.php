@@ -404,7 +404,7 @@
     if(isset($_POST['user_response'])&&isset($_POST['user_time'])){
     $user_response = $_POST['user_response'];
     $user_time = $_POST['user_time'];
-    var_dump($current_user,$id_carrier,$user_response,$user_time);
+    // var_dump($current_user,$id_carrier,$user_response,$user_time);
     exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_response = '$user_response' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
     exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_time_spent = '$user_time' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
     $current_user = check_login();
@@ -416,7 +416,7 @@
     $current_time =  exec_sql_query($myPDO, "SELECT user_time_spent FROM user_question_world_answer WHERE user_id = '$current_user' AND question_id = '$previous_one'")->fetchAll();
 
     $user_time = (float)$_POST['user_time_agreement']+(float)$current_time;
-    var_dump($current_time,$current_user,$previous_one,$user_response,$user_time);
+    // var_dump($current_time,$current_user,$previous_one,$user_response,$user_time);
     exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_political_stand = '$user_response' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
     exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_time_spent = '$user_time' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
     $current_user = check_login();
