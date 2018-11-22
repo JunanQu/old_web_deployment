@@ -19,7 +19,6 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   $dominant_party = 'Neither';
   $nondominant_party = 'Neither';
 }
-
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -36,7 +35,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
         echo "<span style='color:red'>The Supreme Court has gone too far in liberalizing access to abortion.</span>";
       } else if ($id_carrier == 24) {
         echo "<span style='color:black'>PRACTICE QUESTION: </span>";
-        echo "<span style='color:red'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
+        echo "<span style='color:blue'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
       } else {
         $records = exec_sql_query($myPDO,
             "SELECT question_content FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
@@ -68,18 +67,19 @@ echo '<div class="wrapper5" style="width:75% !important; margin:10%; margin-top:
 
 $form_universal_tag = '<form class="form_i" id="question_box" ';
 
-if($id_carrier == 24 || $id_carrier == 23){
-    echo $form_universal_tag, 'style="width:100% !important;" action="game_start.php" method="post">';
-}else{
+// if($id_carrier == 24 || $id_carrier == 23){
+//     echo $form_universal_tag, 'style="width:100% !important;" action="game_start.php" method="post">';
+// }else{
     echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
-}
+// }
 ?>
     <p class="question_text initially_show">
       For an opportunity to win* $100:
-    </p>
-    <p class="question_text initially_hide">
+      <br/>
       Which party do you predict is more likely to agree with this opinion?
     </p>
+    <!-- <p class="question_text initially_hide">
+    </p> -->
     <br/><br/>
 
     <!-- This is a hidden field that is used to pass data to the back-end. -->

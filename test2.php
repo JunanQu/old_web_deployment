@@ -408,7 +408,7 @@
     exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_response = '$user_response' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
     exec_sql_query($myPDO, "UPDATE user_question_world_answer SET user_time_spent = '$user_time' WHERE user_id = '$current_user' AND question_id = '$previous_one'");
     $current_user = check_login();
-    $id_carrier = check_question_id();
+    $id_carrier = get_previous_one();
     }
 
     if(isset($_POST['user_response_agreement'])&&isset($_POST['user_time_agreement'])){

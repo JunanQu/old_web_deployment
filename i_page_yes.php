@@ -1,9 +1,22 @@
 <?php
 include('test2.php');
+
+$support_num_of_demo_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_response = 'agree' AND  world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll());
+$oppose_num_of_demo_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_response = 'disagree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll());
+
+$support_num_of_repub_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_response = 'agree'  AND world_id = '$current_user_world_id' AND user.political_stand = 'Republicans')")->fetchAll());
+$oppose_num_of_repub_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_response = 'disagree'  AND world_id = '$current_user_world_id' AND user.political_stand = 'Republicans')")->fetchAll());
+
 $dominant_party = '';
 $nondominant_party = '';
-
-if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+if($id_carrier==23){
+  $dominant_party = 'Republicans';
+  $nondominant_party = 'Democrats';
+}else if($id_carrier==24){
+  $dominant_party = 'Democrats';
+  $nondominant_party = 'Republicans';
+}
+else if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   // If more democrats support.
   $dominant_party = 'Democrats';
   $nondominant_party = 'Republicans';
@@ -66,13 +79,7 @@ $preference = $_GET["preference"];
 $form_universal_tag = '<form class="form_i" id="question_box" ';
 
 if($id_carrier == 24 || $id_carrier == 23){
-  if (($current_user_world_id==1))
-  {
     echo $form_universal_tag, 'style="width:100% !important;" action="game_start.php" method="post">';
-  }else
-  {
-	echo $form_universal_tag, 'action="game_start.php" method="post">';
-  }
 }else{
   echo $form_universal_tag, 'style="width:100% !important;" action="question.php?preference=1" method="post">';
 
@@ -83,7 +90,7 @@ if($id_carrier == 24 || $id_carrier == 23){
     </p>
 
     <p class="question_text initially_hide">
-      As a <?php echo "$user_political_id" ?>,
+      As a <span class="<?php echo $user_political_id."s" ?>"><?php echo "$user_political_id" ?></span>,
       <br/>
       do you agree or disagree with this statement?
     </p>

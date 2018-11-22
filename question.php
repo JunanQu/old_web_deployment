@@ -124,7 +124,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
           echo "<span style='color:red'>The Supreme Court has gone too far in liberalizing access to abortion.</span>";
 				} else if ($id_carrier == 24) {
 					echo "<span style='color:black'>PRACTICE QUESTION: </span>";
-          echo "<span style='color:red'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
+          echo "<span style='color:blue'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
 				} else {
 					$records = exec_sql_query($myPDO,
 							"SELECT question_content FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
@@ -146,10 +146,10 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
     <p>
       <?php
         if($id_carrier==24){
-          echo 'So far <span class="Democrats">Democrats are more likely than <span class="Republicans">Republicans</span> to agree with this statement';
+          echo 'So far <span class="Democrats">Democrats</span> are more likely than <span class="Republicans">Republicans</span> to agree with this statement';
         }
         else if($id_carrier==23){
-          echo 'So far <span class="Republicans">Republicans are more likely than <span class="Democrats">Democrats </span> to agree with this statement';
+          echo 'So far <span class="Republicans">Republicans</span> are more likely than <span class="Democrats">Democrats </span> to agree with this statement';
         }
         else if ($dominant_party=='Neither') {
           echo 'So far, <span class="Democrats">Democrats</span> and <span class="Republicans">Republicans</span> are equally likely to agree with this statement.';
@@ -166,7 +166,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   </div>
   <div class="cont to_show">
     <p>
-      Based on the bar chart to the right, pick the reason <?php echo "$user_political_id"?>
+      Pick the reason <?php echo "$user_political_id"?>
       players might might answer differently than the other party.
     </p>
 		<div class="reasons_question">
