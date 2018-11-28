@@ -1,89 +1,28 @@
 <?php
 include('test2.php');
 
-if (!$num_of_users<=1 && !(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0))) {
-
-if ($support_rate_of_demo_percent >= 95){
-  $support_rate_of_demo_percent = rand(95,98);
-  $oppose_rate_of_demo_percent = 100-$support_rate_of_demo_percent;
-}
-if ($support_rate_of_demo_percent <= 5){
-  $support_rate_of_demo_percent = rand(1,5);
-  $oppose_rate_of_demo_percent = 100-$support_rate_of_demo_percent;
-}
-}
-if(!($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
-  if($support_rate_of_repub_percent >= 95){
-    $support_rate_of_repub_percent = rand(95,98);
-    $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
-  }
-  if($support_rate_of_repub_percent <= 5){
-    $support_rate_of_repub_percent = rand(1,5);
-    $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
-  }
-}
-$preference = $_GET["preference"];
-// if($support_num_of_demo_percent==0&&$oppose_num_of_demo_percent==0&&$support_num_of_repub_percent==0&&$oppose_num_of_repub_percent==0){
-//   $dataPoints = array(
-//   	array("y" => null, "label" => "Democrats" ),
-//   	array("y" => null, "label" => "Republicans" ),
-//   );
+// if (!$num_of_users<=1 && !(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0))) {
 //
-// }else if ($id_carrier == 23){
-//   $dataPoints = array(
-//   	array("y" => 12, "label" => "Democrats" ),
-//   	array("y" => 88, "label" => "Republicans" ),
-//   );
-// }else if($id_carrier == 24){
-//   $dataPoints = array(
-//     array("y" => 91, "label" => "Democrats" ),
-//     array("y" => 12, "label" => "Republicans" ),
-//   );
-// }else
-// if (($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-// var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
-if ($id_carrier == 23){
-  echo "23";
-  $dataPoints = array(
-  	array("y" => 12, "label" => "Democrats" ),
-  	array("y" => 88, "label" => "Republicans" ),
-  );
-}else if($id_carrier == 24){
-  echo "24";
-  $dataPoints = array(
-  	array("y" => 91, "label" => "Democrats" ),
-  	array("y" => 9, "label" => "Republicans" ),
-  );
-}
-else if ((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0))||($current_user_world_id==1)) {
-  echo "null";
-  $dataPoints = array(
-    array("y" => null, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
-    array("y" => null, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
-  );
-}else{
-  $dataPoints = array(
-  	array("y" => $support_rate_of_demo_percent, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
-  	array("y" => $support_rate_of_repub_percent, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
-  );
-}
+// if ($support_rate_of_demo_percent >= 95){
+//   $support_rate_of_demo_percent = rand(95,98);
+//   $oppose_rate_of_demo_percent = 100-$support_rate_of_demo_percent;
 // }
-// else if(($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent != 0 || $oppose_num_of_repub_percent != 0)){
-//   $dataPoints = array(
-//   	array("y" => null, "label"=> " " ),
-//   	array("y" => $support_rate_of_repub_percent, "label"=> "Republicans: $support_rate_of_repub_percent% Agree" ),
-//   );
-// }else if(($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0) && ($support_num_of_demo_percent != 0 || $oppose_num_of_demo_percent != 0)){
-//   $dataPoints = array(
-//   	array("y" => $support_rate_of_demo_percent, "label"=> "Democrats: $support_rate_of_demo_percent% Agree" ),
-//   	array("y" => null, "label"=> " " ),
-//   );
-// }else{
-//   $dataPoints = array(
-//   	array("y" => null, "label"=> null),
-//   	array("y" => null, "label"=> null ),
-//   );
+// if ($support_rate_of_demo_percent <= 5){
+//   $support_rate_of_demo_percent = rand(1,5);
+//   $oppose_rate_of_demo_percent = 100-$support_rate_of_demo_percent;
 // }
+// }
+// if(!($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
+//   if($support_rate_of_repub_percent >= 95){
+//     $support_rate_of_repub_percent = rand(95,98);
+//     $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
+//   }
+//   if($support_rate_of_repub_percent <= 5){
+//     $support_rate_of_repub_percent = rand(1,5);
+//     $oppose_rate_of_repub_percent = 100 - $support_rate_of_repub_percent;
+//   }
+// }
+$preference = $_GET["preference"];
 
 $dominant_party = '';
 $nondominant_party = '';
@@ -181,9 +120,11 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 			<div class="wrap">
 				<h1 class="content_q <?php echo $dominant_party ?>"><?php
 				if ($id_carrier == 23) {
-					echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion.";
+          echo "<span style='color:black'>PRACTICE QUESTION: </span>";
+          echo "<span style='color:red'>The Supreme Court has gone too far in liberalizing access to abortion.</span>";
 				} else if ($id_carrier == 24) {
-					echo "PRACTICE QUESTION: The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished." ;
+					echo "<span style='color:black'>PRACTICE QUESTION: </span>";
+          echo "<span style='color:blue'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
 				} else {
 					$records = exec_sql_query($myPDO,
 							"SELECT question_content FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
@@ -201,10 +142,16 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 
 	<!-- ================ BODY ================ -->
 <div class="wrapper5" style="width:100% !important;">
-  <div class="cont to_hide">
+  <div class="cont">
     <p>
       <?php
-        if ($dominant_party=='Neither') {
+        if($id_carrier==24){
+          echo 'So far <span class="Democrats">Democrats</span> are more likely than <span class="Republicans">Republicans</span> to agree with this statement';
+        }
+        else if($id_carrier==23){
+          echo 'So far <span class="Republicans">Republicans</span> are more likely than <span class="Democrats">Democrats </span> to agree with this statement';
+        }
+        else if ($dominant_party=='Neither') {
           echo 'So far, <span class="Democrats">Democrats</span> and <span class="Republicans">Republicans</span> are equally likely to agree with this statement.';
         } else {
           echo 'So far, <span class="'.$dominant_party.'">'.$dominant_party.'</span> are more likely than <span class="'.$nondominant_party.'">'.$nondominant_party.'</span> to agree with this statement.';
@@ -217,10 +164,20 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
       why this might be the case.
     </p>
   </div>
-  <div class="cont to_show">
+  <?php
+  if ($user_political_id == "Democrat"){
+    $user_political_id_possessive = "Democratic";
+    $user_opposie_party = "Republican";
+  }else{
+    $user_political_id_possessive = "Republican";
+    $user_opposie_party = "Democrat";
+  }
+
+  ?>
+  <div class="cont initially_hide">
     <p>
-      Based on the bar chart to the right, pick the reason <?php echo "$user_political_id"?>
-      players might might answer differently than the other party.
+      Pick the reason a <?php echo "$user_political_id"?>
+       might answer differently than a <?php echo "$user_opposie_party"?>.
     </p>
 		<div class="reasons_question">
 			<form action="party_prediction_question.php?preference=1" method="post">
@@ -229,8 +186,8 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 					<input name="ideology" type="submit" class="reason_button" value="ideology" disabled>
 					</input>
 					<div class="desc">
-						Because the issue involves <?php echo "$user_political_id" ?> party
-            values (liberal vs. conservative).
+						Because the issue involves <?php echo "$user_political_id_possessive" ?> party
+            <span class="underline">values</span>.
 					</div>
 				</div>
 
@@ -239,7 +196,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 					<input name="history" type="submit" class="reason_button" value="history" disabled>
 					</input>
 					<div class="desc">
-            Because the issue involves historical <?php echo "$user_political_id" ?> party
+            Because the issue involves <span class="underline">historical</span> <?php echo "$user_political_id_possessive" ?> party
 						positions.
           </div>
 				</div>
@@ -249,8 +206,8 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 					<input name="popularity" type="submit" class="reason_button" value="popularity" disabled>
 					</input>
 					<div class="desc">
-            Because the issue is important to the <?php echo "$user_political_id" ?>
-						party’s core political base.
+            Because the issue is important to the <?php echo "$user_political_id_possessive" ?>
+						party’s <span class="underline">core political base</span>.
           </div>
 				</div>
 			</form>

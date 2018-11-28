@@ -70,7 +70,7 @@ function enableButton() {
           However, should you decide to withdraw, you will forfeit your payment.
         </p>
         <p>
-          Your responses will be completely anonymous.
+          Your responses will be <strong>completely anonymous</strong>.
           We do not collect any personally identifiable information.
           Your test responses will be stored on an encrypted database.
           Only researchers involved in this study will have access to this information.
@@ -97,16 +97,16 @@ function enableButton() {
        // $politic_dump = $politic_dump[0]['political_stand'];
        // var_dump($support_num_of_demo_percent,$oppose_num_of_demo_percent,$support_num_of_repub_percent,$oppose_num_of_repub_percent);
        if ( $current_user_world_id == 1 ){
-       echo'<form action="instruction.php" method="post">';
+       echo'<form action="game_instructions2.php" method="post">';
      }elseif (($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) && ($support_num_of_repub_percent == 0 && $oppose_num_of_repub_percent == 0)) {
-       echo'<form action="game_instructions.php" method="post">';
+       echo'<form action="game_instructions2.php" method="post">';
      }
         else{
-       echo'<form action="game_instructions2.php" method="post">';
+       echo'<form action="game_instructions.php" method="post">';
         }
        ?>
        <p><input type="checkbox" id="myCheck" onclick="javascript:enableButton();" >
-         I have read the above information and consent to take part in the study.<br></p>
+         <strong>I have read the above information and consent to take part in the study.</strong><br></p>
 
 
      <input type = "submit" class="button" id = "myButton" value = "I consent to participate" onclick="javascript:enableButton();"  >

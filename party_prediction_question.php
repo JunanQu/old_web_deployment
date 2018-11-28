@@ -19,7 +19,6 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   $dominant_party = 'Neither';
   $nondominant_party = 'Neither';
 }
-
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -31,18 +30,21 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 	<div class="header-top">
 		<div class="wrap">
 			<h1 class="content_q <?php echo $dominant_party ?>"><?php
-			if ($id_carrier == 23){
-				echo "PRACTICE QUESTION: The Supreme Court has gone too far in liberalizing access to abortion." ;
-			}else if ($id_carrier == 24) {
-				echo "PRACTICE QUESTION: The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished." ;
-			} else {
-  			$records = exec_sql_query($myPDO, "SELECT question_content,id FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
-  			if ($records) {
-  				// echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
+      if ($id_carrier == 23) {
+        echo "<span style='color:black'>PRACTICE QUESTION: </span>";
+        echo "<span style='color:red'>The Supreme Court has gone too far in liberalizing access to abortion.</span>";
+      } else if ($id_carrier == 24) {
+        echo "<span style='color:black'>PRACTICE QUESTION: </span>";
+        echo "<span style='color:blue'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
+      } else {
+        $records = exec_sql_query($myPDO,
+            "SELECT question_content FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
+        if ($records) {
+          // echo("Question ".$current_seq_by_count.". ".'"'.$records['question_content'].'"');
           // Removes the question number in the title.
           echo('"'.$records['question_content'].'"');
-				}
-			};
+        }
+      };
       ?></h1>
 			<h2> </h2>
 			<div class="clear_chart"></div>
@@ -65,19 +67,19 @@ echo '<div class="wrapper5" style="width:75% !important; margin:10%; margin-top:
 
 $form_universal_tag = '<form class="form_i" id="question_box" ';
 
-if($id_carrier == 24 || $id_carrier == 23){
-  if (($current_user_world_id==1))
-    echo $form_universal_tag, 'style="width:100% !important;" action="game_start.php" method="post">';
-} else {
+// if($id_carrier == 24 || $id_carrier == 23){
+//     echo $form_universal_tag, 'style="width:100% !important;" action="game_start.php" method="post">';
+// }else{
     echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
-}
+// }
 ?>
     <p class="question_text initially_show">
       For an opportunity to win* $100:
-    </p>
-    <p class="question_text initially_hide">
+      <br/>
       Which party do you predict is more likely to agree with this opinion?
     </p>
+    <!-- <p class="question_text initially_hide">
+    </p> -->
     <br/><br/>
 
     <!-- This is a hidden field that is used to pass data to the back-end. -->
@@ -108,7 +110,7 @@ let WAS_SUBMITTED = false;
 let CAN_SUBMIT = false;
 var USER_START_TIME = -1;
 var USER_END_TIME = -1;
-const QUESTION_FADE_TIME = 3; // Number of seconds it should take for Q to appear.
+const QUESTION_FADE_TIME = 0; // Number of seconds it should take for Q to appear.
 
 $(document).ready(function() {
     USER_START_TIME = performance.now();
@@ -160,9 +162,8 @@ function showEl_(elToShow, opt_harshTransition) {
         let self = $(this);
         if (self.hasClass('opinion_response')) {
             // If button (i.e., was just disabled)
-            self.fadeTo(time, 1, () => {
-              self.prop('disabled', false);
-            });
+            self.prop('disabled', false);
+            self.fadeTo(time, 1);
         } else {
             // If manually obfuscated
             self.css({
