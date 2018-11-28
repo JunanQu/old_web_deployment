@@ -48,7 +48,7 @@ $preference = $_GET["preference"];
           echo "<span style='color:red'>The Supreme Court has gone too far in liberalizing access to abortion.</span>";
         } else if ($id_carrier == 24) {
           echo "<span style='color:black'>PRACTICE QUESTION: </span>";
-          echo "<span style='color:red'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
+          echo "<span style='color:blue'>The Affordable Care Act ('Obamacare') should be strengthened, not weakened or abolished.</span" ;
         } else {
           $records = exec_sql_query($myPDO,
               "SELECT question_content FROM questions WHERE questions.id ='". $id_carrier."'")->fetch(PDO::FETCH_ASSOC);
@@ -89,7 +89,7 @@ if($id_carrier == 24 || $id_carrier == 23){
       Finally, we would like to know your own individual opinion.
     </p>
 
-    <p class="question_text initially_hide">
+    <p class="question_text initially_show">
       As a <span class="<?php echo $user_political_id."s" ?>"><?php echo "$user_political_id" ?></span>,
       <br/>
       do you agree or disagree with this statement?
@@ -123,7 +123,7 @@ let WAS_SUBMITTED = false;
 let CAN_SUBMIT = false;
 var USER_START_TIME = -1;
 var USER_END_TIME = -1;
-const QUESTION_FADE_TIME = 7; // Number of seconds it should take for Q to appear.
+const QUESTION_FADE_TIME = 0; // Number of seconds it should take for Q to appear.
 
 $(document).ready(function() {
     USER_START_TIME = performance.now();

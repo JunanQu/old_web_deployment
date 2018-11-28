@@ -142,7 +142,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 
 	<!-- ================ BODY ================ -->
 <div class="wrapper5" style="width:100% !important;">
-  <div class="cont to_hide">
+  <div class="cont">
     <p>
       <?php
         if($id_carrier==24){
@@ -164,10 +164,18 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
       why this might be the case.
     </p>
   </div>
+  <?php
+  if ($user_political_id == "Democrat"){
+    $user_political_id_possessive = "Democratic";
+  }else{
+    $user_political_id_possessive = "Republican";
+  }
+
+  ?>
   <div class="cont to_show">
     <p>
-      Pick the reason <?php echo "$user_political_id"?>
-      players might might answer differently than the other party.
+      Pick the reason a <?php echo "$user_political_id"?>
+       might answer differently than the other party.
     </p>
 		<div class="reasons_question">
 			<form action="party_prediction_question.php?preference=1" method="post">

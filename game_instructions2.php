@@ -27,7 +27,7 @@
        <form action="political_id.php" method="post">
          <p class="instruction_title">
            <strong>
-             Please read each of the following instructions and check the box next to them.
+             Please read each of the following instructions and check the box next to each item.
              <br/>
              You will be able to continue once you have read and checked off each item.
            </strong>

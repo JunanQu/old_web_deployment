@@ -27,7 +27,7 @@
        <form action="political_id.php" method="post">
          <p class="instruction_title">
            <strong>
-             Please read each of the following instructions and check the box next to them.
+             Please read each of the following instructions and check the box next to each item.
              <br/>
              You will be able to continue once you have read and checked off each item.
            </strong>
@@ -69,8 +69,7 @@
          and press continue:
          <br/>
          <input type="checkbox" class="item">
-         I have carefully read the instructions and am ready to continue
-         with the test.
+         I have carefully read the instructions and am ready to continue with the game.
      </p>
 
      <p class="continue_label">

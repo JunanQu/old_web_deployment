@@ -37,7 +37,12 @@
           echo'<form action="question.php?preference=1" method="post">';
         }
       ?>
-      <label>BEFORE WE START THE GAME, WE WILL GIVE EVERYONE ONE PRACTICE QUESTION THAT WON’T COUNT TOWARD WINNING THE GAME.</label>
+      <label>BEFORE WE START THE GAME, WE WILL GIVE EVERYONE AN EASY PRACTICE QUESTION THAT WON’T COUNT TOWARD WINNING THE GAME.
+        <br/>
+        THE PRACTICE QUESTION HAS AN OBVIOUS ANSWER TO MAKE IT EASIER TO UNDERSTAND THE TASK.
+        <br/>
+        THE QUESTIONS IN THE ACTUAL GAME WILL NOT BE OBVIOUS.
+      </label>
       <button id="continue_button" name="continue" type="submit" value="continue">Continue</button>
       </form>
 
