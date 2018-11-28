@@ -68,7 +68,7 @@ $form_universal_tag = '<form class="form_i" id="question_box" ';
 if($id_carrier == 24 || $id_carrier == 23){
   if (($current_user_world_id==1))
     echo $form_universal_tag, 'style="width:100% !important;" action="game_start.php" method="post">';
-}else{
+} else {
     echo $form_universal_tag, 'style="width:100% !important;" action="i_page_yes.php?preference=1" method="post">';
 }
 ?>
