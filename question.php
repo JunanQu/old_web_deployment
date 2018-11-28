@@ -167,15 +167,17 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   <?php
   if ($user_political_id == "Democrat"){
     $user_political_id_possessive = "Democratic";
+    $user_opposie_party = "Republican";
   }else{
     $user_political_id_possessive = "Republican";
+    $user_opposie_party = "Democrat";
   }
 
   ?>
-  <div class="cont to_show">
+  <div class="cont initially_hide">
     <p>
       Pick the reason a <?php echo "$user_political_id"?>
-       might answer differently than the other party.
+       might answer differently than a <?php echo "$user_opposie_party"?>.
     </p>
 		<div class="reasons_question">
 			<form action="party_prediction_question.php?preference=1" method="post">
@@ -184,7 +186,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 					<input name="ideology" type="submit" class="reason_button" value="ideology" disabled>
 					</input>
 					<div class="desc">
-						Because the issue involves <?php echo "$user_political_id" ?> party
+						Because the issue involves <?php echo "$user_political_id_possessive" ?> party
             <span class="underline">values</span>.
 					</div>
 				</div>
@@ -194,7 +196,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 					<input name="history" type="submit" class="reason_button" value="history" disabled>
 					</input>
 					<div class="desc">
-            Because the issue involves <span class="underline">historical</span> <?php echo "$user_political_id" ?> party
+            Because the issue involves <span class="underline">historical</span> <?php echo "$user_political_id_possessive" ?> party
 						positions.
           </div>
 				</div>
@@ -204,7 +206,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 					<input name="popularity" type="submit" class="reason_button" value="popularity" disabled>
 					</input>
 					<div class="desc">
-            Because the issue is important to the <?php echo "$user_political_id" ?>
+            Because the issue is important to the <?php echo "$user_political_id_possessive" ?>
 						party’s <span class="underline">core political base</span>.
           </div>
 				</div>
