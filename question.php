@@ -26,7 +26,7 @@ $preference = $_GET["preference"];
 
 $dominant_party = '';
 $nondominant_party = '';
-
+// echo $support_num_of_demo_percent,$support_num_of_repub_percent;
 if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   // If more democrats support.
   $dominant_party = 'Democrats';

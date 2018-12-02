@@ -1,11 +1,11 @@
 <?php
 include('test2.php');
 
-$support_num_of_demo_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_response = 'agree' AND  world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll());
-$oppose_num_of_demo_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_response = 'disagree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll());
+$support_num_of_demo_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_political_stand = 'agree' AND  world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll());
+$oppose_num_of_demo_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_political_stand = 'disagree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll());
 
-$support_num_of_repub_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_response = 'agree'  AND world_id = '$current_user_world_id' AND user.political_stand = 'Republicans')")->fetchAll());
-$oppose_num_of_repub_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_response = 'disagree'  AND world_id = '$current_user_world_id' AND user.political_stand = 'Republicans')")->fetchAll());
+$support_num_of_repub_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_political_stand = 'agree'  AND world_id = '$current_user_world_id' AND user.political_stand = 'Republicans')")->fetchAll());
+$oppose_num_of_repub_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_political_stand = 'disagree'  AND world_id = '$current_user_world_id' AND user.political_stand = 'Republicans')")->fetchAll());
 
 $dominant_party = '';
 $nondominant_party = '';
