@@ -7,12 +7,20 @@ $dominant_party = '';
 $nondominant_party = '';
 
 // echo $support_num_of_demo_percent,$support_num_of_repub_percent;
+// var_dump( $support_rate_of_demo, $support_rate_of_repub);
 
-if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+if($id_carrier==23){
+  $dominant_party = 'Republicans';
+  $nondominant_party = 'Democrats';
+}else if($id_carrier==24){
+  $dominant_party = 'Democrats';
+  $nondominant_party = 'Republicans';
+}
+else if ($support_rate_of_demo > $support_rate_of_repub) {
   // If more democrats support.
   $dominant_party = 'Democrats';
   $nondominant_party = 'Republicans';
-} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
+} else if ($support_rate_of_demo < $support_rate_of_repub) {
   // If more republicans support.
   $dominant_party = 'Republicans';
   $nondominant_party = 'Democrats';
@@ -21,6 +29,17 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   $dominant_party = 'Neither';
   $nondominant_party = 'Neither';
 }
+
+if ($dominant_party == 'Republicans'){
+  $font_color = 'Red';
+}else if ($dominant_party == 'Democrats'){
+  $font_color = 'Blue';
+}else {
+  $font_color = 'Purple';
+}
+exec_sql_query($myPDO, "UPDATE user_question_world_answer SET font_color = '$font_color' WHERE user_id = '$current_user' AND question_id = '$id_carrier'");
+
+
 ?>
 <!DOCTYPE HTML>
 <html>

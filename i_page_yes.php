@@ -7,8 +7,36 @@ $oppose_num_of_demo_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_qu
 $support_num_of_repub_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_political_stand = 'agree'  AND world_id = '$current_user_world_id' AND user.political_stand = 'Republicans')")->fetchAll());
 $oppose_num_of_repub_percent =count(exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$previous_one' AND user_political_stand = 'disagree'  AND world_id = '$current_user_world_id' AND user.political_stand = 'Republicans')")->fetchAll());
 
+$demo_who_support = exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND user_political_stand = 'agree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll();
+
+$all_demo_in_world = exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND world_id = '$current_user_world_id' AND (user_political_stand IS NOT NULL) AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll();
+$republican_who_support=exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND user_political_stand = 'agree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Republicans' OR user.political_stand = 'strong Republicans'))")->fetchAll();
+$all_republican_in_world=exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND world_id = '$current_user_world_id' AND (user_political_stand  IS NOT NULL) AND (user.political_stand = 'Republicans' OR user.political_stand = 'strong Republicans'))")->fetchAll();
+
+$demo_who_support=count($demo_who_support);
+$all_demo_in_world = count($all_demo_in_world);
+$all_republican_in_world = count($all_republican_in_world);
+$republican_who_support = count($republican_who_support);
+
+if($all_demo_in_world == 0){
+$support_rate_of_demo = NULL;
+$oppose_rate_of_demo = NULL;
+}else{
+$support_rate_of_demo = $demo_who_support / $all_demo_in_world;
+$oppose_rate_of_demo = $demo_who_oppose / $all_demo_in_world;
+}
+
+if($all_republican_in_world == 0){
+$oppose_rate_of_repub = NULL;
+$support_rate_of_repub = NULL;
+}
+else{
+$support_rate_of_repub = $republican_who_support / $all_republican_in_world;
+$oppose_rate_of_repub = $republican_who_oppose / $all_republican_in_world;
+}
 $dominant_party = '';
 $nondominant_party = '';
+
 if($id_carrier==23){
   $dominant_party = 'Republicans';
   $nondominant_party = 'Democrats';
@@ -16,11 +44,11 @@ if($id_carrier==23){
   $dominant_party = 'Democrats';
   $nondominant_party = 'Republicans';
 }
-else if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+else if ($demo_who_support > $republican_who_support) {
   // If more democrats support.
   $dominant_party = 'Democrats';
   $nondominant_party = 'Republicans';
-} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
+} else if ($demo_who_support < $republican_who_support) {
   // If more republicans support.
   $dominant_party = 'Republicans';
   $nondominant_party = 'Democrats';
@@ -29,6 +57,14 @@ else if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   $dominant_party = 'Neither';
   $nondominant_party = 'Neither';
 }
+if ($dominant_party == 'Republicans'){
+  $font_color = 'Red';
+}else if ($dominant_party == 'Democrats'){
+  $font_color = 'Blue';
+}else {
+  $font_color = 'Purple';
+}
+exec_sql_query($myPDO, "UPDATE user_question_world_answer SET font_color = '$font_color' WHERE user_id = '$current_user' AND question_id = '$id_carrier'");
 
 $preference = $_GET["preference"];
 ?>

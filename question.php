@@ -27,11 +27,18 @@ $preference = $_GET["preference"];
 $dominant_party = '';
 $nondominant_party = '';
 // echo $support_num_of_demo_percent,$support_num_of_repub_percent;
-if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
+// echo $support_rate_of_demo, $support_rate_of_repub;
+if($id_carrier==23){
+  $dominant_party = 'Republicans';
+  $nondominant_party = 'Democrats';
+}else if($id_carrier==24){
+  $dominant_party = 'Democrats';
+  $nondominant_party = 'Republicans';
+}else if ($demo_who_support > $republican_who_support) {
   // If more democrats support.
   $dominant_party = 'Democrats';
   $nondominant_party = 'Republicans';
-} else if ($support_num_of_demo_percent < $support_num_of_repub_percent) {
+} else if ($demo_who_support < $republican_who_support) {
   // If more republicans support.
   $dominant_party = 'Republicans';
   $nondominant_party = 'Democrats';
@@ -40,6 +47,18 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   $dominant_party = 'Neither';
   $nondominant_party = 'Neither';
 }
+
+if ($dominant_party == 'Republicans'){
+  $font_color = 'Red';
+}else if ($dominant_party == 'Democrats'){
+  $font_color = 'Blue';
+}else {
+  $font_color = 'Purple';
+}
+exec_sql_query($myPDO, "UPDATE user_question_world_answer SET font_color = '$font_color' WHERE user_id = '$current_user' AND question_id = '$id_carrier'");
+
+
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -142,17 +161,31 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   <div class="cont">
     <p>
       <?php
+      if($all_demo_in_world == 0 && $all_republican_in_world == 0){
         if($id_carrier==24){
-          echo 'So far <span class="Democrats">Democrats</span> are more likely than <span class="Republicans">Republicans</span> to agree with this statement';
+          echo '<span class="Democrats">Democrats</span> are more likely than <span class="Republicans">Republicans</span> to agree with this statement';
         }
         else if($id_carrier==23){
-          echo 'So far <span class="Republicans">Republicans</span> are more likely than <span class="Democrats">Democrats </span> to agree with this statement';
+          echo '<span class="Republicans">Republicans</span> are more likely than <span class="Democrats">Democrats </span> to agree with this statement';
+        }
+        else if ($dominant_party=='Neither') {
+          echo '<span class="Democrats">Democrats</span> and <span class="Republicans">Republicans</span> are equally likely to agree with this statement.';
+        } else {
+          echo '<span class="'.$dominant_party.'">'.$dominant_party.'</span> are more likely than <span class="'.$nondominant_party.'">'.$nondominant_party.'</span> to agree with this statement.';
+        }
+      }else{
+        if($id_carrier==24){
+          echo 'So far, <span class="Democrats">Democrats</span> are more likely than <span class="Republicans">Republicans</span> to agree with this statement';
+        }
+        else if($id_carrier==23){
+          echo 'So far. <span class="Republicans">Republicans</span> are more likely than <span class="Democrats">Democrats </span> to agree with this statement';
         }
         else if ($dominant_party=='Neither') {
           echo 'So far, <span class="Democrats">Democrats</span> and <span class="Republicans">Republicans</span> are equally likely to agree with this statement.';
         } else {
           echo 'So far, <span class="'.$dominant_party.'">'.$dominant_party.'</span> are more likely than <span class="'.$nondominant_party.'">'.$nondominant_party.'</span> to agree with this statement.';
         }
+      }
       ?>
     </p>
     <br>
