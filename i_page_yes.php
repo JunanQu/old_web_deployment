@@ -103,10 +103,10 @@ if($id_carrier == 24 || $id_carrier == 23){
     <!-- Buttons for user to choose between. This will auto-populate the hidden
          field on the client side. -->
     </fieldset>
-    <button id="agree" class="opinion_response initially_hide <?php echo $dominant_party ?>_bkg" value="agree" disabled>
+    <button id="agree" class="opinion_response <?php echo $dominant_party ?>_bkg" value="agree">
         I agree.
     </button>
-    <button id="disagree" class="opinion_response initially_hide <?php echo $nondominant_party ?>_bkg" value="disagree" disabled>
+    <button id="disagree" class="opinion_response <?php echo $nondominant_party ?>_bkg" value="disagree">
         I disagree.
     </button>
 </form>
@@ -120,7 +120,6 @@ if (((($support_num_of_demo_percent == 0 && $oppose_num_of_demo_percent == 0) &&
 
 <script>
 let WAS_SUBMITTED = false;
-let CAN_SUBMIT = false;
 var USER_START_TIME = -1;
 var USER_END_TIME = -1;
 const QUESTION_FADE_TIME = 0; // Number of seconds it should take for Q to appear.
@@ -128,7 +127,7 @@ const QUESTION_FADE_TIME = 0; // Number of seconds it should take for Q to appea
 $(document).ready(function() {
     USER_START_TIME = performance.now();
     console.log('\n\n\n\n\n\n\n\n\n\n============================\n NEW PAGE\n============================');
-    setTimeout(fadeNextQuestion, QUESTION_FADE_TIME*1000, $('.initially_hide'), $('.initially_show'));
+    // setTimeout(fadeNextQuestion, QUESTION_FADE_TIME*1000, $('.initially_hide'), $('.initially_show'));
 });
 
 // Listens for submit event only once.
@@ -139,7 +138,7 @@ $('.opinion_response').click((event) => {
     let responseVal = event.target.id;
     let timeVal = getDelta_(USER_START_TIME, USER_END_TIME);
 
-    if (CAN_SUBMIT && !WAS_SUBMITTED && responseVal != '') {
+    if (!WAS_SUBMITTED && responseVal != '') {
         // Populate hidden input field that stores 'agree' or 'disagree'.
         $('.user_response_agreement').val(responseVal);
         $('.user_time_agreement').val(timeVal);
@@ -158,13 +157,7 @@ $('.opinion_response').click((event) => {
     }
 });
 
-$('form.form_i').on('submit', function(event) {
-    console.log('SUBMITTED!!!', event);
-});
-
 function fadeNextQuestion(elToShow, elToHide) {
-    CAN_SUBMIT = true; // Marks that user can submit.
-
     showEl_(elToShow); // Makes hidden elements fully visible.
 }
 
@@ -186,7 +179,7 @@ function showEl_(elToShow, opt_harshTransition) {
     });
 }
 
-function hideEl_(elToHide, opt_harshTransition) {
+function hideEl_(elToHide, opt_harshTransition, opt_fadeTo) {
     let time = !!opt_harshTransition ? 0 : 1000;
 
     elToHide.each(function(ind) {
@@ -194,7 +187,7 @@ function hideEl_(elToHide, opt_harshTransition) {
         if (self.hasClass('opinion_response')) {
             self.prop('disabled', true);
         }
-        self.fadeTo(time, 0.3);
+        self.fadeTo(time, opt_fadeTo ? opt_fadeTo : 0);
     });
 }
 

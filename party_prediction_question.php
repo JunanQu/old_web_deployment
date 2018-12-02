@@ -89,10 +89,10 @@ $form_universal_tag = '<form class="form_i" id="question_box" ';
     <!-- Buttons for user to choose between. This will auto-populate the hidden
          field on the client side. -->
     </fieldset>
-    <button id="democrats" class="opinion_response initially_hide" value="democrats" disabled>
+    <button id="democrats" class="opinion_response" value="democrats">
         Democrats
     </button>
-    <button id="republicans" class="opinion_response initially_hide" value="republicans" disabled>
+    <button id="republicans" class="opinion_response" value="republicans">
         Republicans
     </button>
 </form>
@@ -107,51 +107,45 @@ $form_universal_tag = '<form class="form_i" id="question_box" ';
 
 <script>
 let WAS_SUBMITTED = false;
-let CAN_SUBMIT = false;
 var USER_START_TIME = -1;
 var USER_END_TIME = -1;
 const QUESTION_FADE_TIME = 0; // Number of seconds it should take for Q to appear.
 
 $(document).ready(function() {
     USER_START_TIME = performance.now();
-    console.log('\n\n\n\n\n\n\n\n\n\n============================\n NEW PAGE\n============================');
-    setTimeout(fadeNextQuestion, QUESTION_FADE_TIME*1000, $('.initially_hide'), $('.initially_show'));
-});
+    // setTimeout(fadeNextQuestion, QUESTION_FADE_TIME*1000, $('.initially_hide'), $('.initially_show'));
 
-// Listens for submit event only once.
-$('.opinion_response').click((event) => {
-    console.log('Click registered!');
-    event.preventDefault();
-    USER_END_TIME = performance.now();
-    let responseVal = event.target.id;
-    let timeVal = getDelta_(USER_START_TIME, USER_END_TIME);
+    // Listens for submit event only once.
+    $('.opinion_response').click((event) => {
+        console.log('Click registered!');
+        event.preventDefault();
+        USER_END_TIME = performance.now();
+        let responseVal = event.target.id;
+        let timeVal = getDelta_(USER_START_TIME, USER_END_TIME);
+        console.log('timeVal', timeVal);
 
-    if (CAN_SUBMIT && !WAS_SUBMITTED && responseVal != '') {
-        // Populate hidden input field that stores 'agree' or 'disagree'.
-        $('.user_response').val(responseVal);
-        $('.user_time').val(timeVal);
-        document.getElementById('user_response').value = responseVal;
-        document.getElementById('user_time').value = timeVal;
 
-        console.log('Populating response with ' + responseVal);
-        console.log('Populating time with ' + timeVal);
+        if (!WAS_SUBMITTED && responseVal != '') {
+            // Populate hidden input field that stores 'agree' or 'disagree'.
+            $('.user_response').val(responseVal);
+            $('.user_time').val(timeVal);
+            document.getElementById('user_response').value = responseVal;
+            document.getElementById('user_time').value = timeVal;
 
-        // Submit the form.
-        $('form.form_i').submit();
+            console.log('Populating response with ' + responseVal);
+            console.log('Populating time with ' + timeVal);
 
-        // Disable buttons to disallow users from submitting multiple times.
-        hideEl_($('.opinion_response'), true);
-        WAS_SUBMITTED = true;
-    }
-});
+            // Submit the form.
+            $('form.form_i').submit();
 
-$('form.form_i').on('submit', function(event) {
-    console.log('SUBMITTED!!!', event);
+            // Disable buttons to disallow users from submitting multiple times.
+            hideEl_($('.opinion_response'), true);
+            WAS_SUBMITTED = true;
+        }
+    });
 });
 
 function fadeNextQuestion(elToShow, elToHide) {
-    CAN_SUBMIT = true; // Marks that user can submit.
-
     showEl_(elToShow); // Makes hidden elements fully visible.
 }
 
