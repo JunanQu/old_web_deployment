@@ -40,11 +40,15 @@ p.question_text {
     margin-bottom: 20px;
 }
 
+.cont.initially_hide {
+  opacity: 0;
+}
+
 p.initially_hide {
     opacity: 0;
     visibility: hidden;
 }
 
 button.initially_hide {
-    opacity: 0.4;
+    opacity: 0;
 }

@@ -99,10 +99,6 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
 	margin-left: 10px;
 }
 
-.to_show {
-  opacity: 0.1;
-}
-
 .cont {
   margin-bottom: 30px;
 }
@@ -112,6 +108,7 @@ if ($support_num_of_demo_percent > $support_num_of_repub_percent) {
   margin-left: calc(50% - 250px);
 }
 </style>
+<link href="styles/question_pages.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<!-- ================ BANNER ================ -->
@@ -245,7 +242,7 @@ function showEl_(elToShow, opt_harshTransition) {
     });
 }
 
-function hideEl_(elToHide, opt_harshTransition) {
+function hideEl_(elToHide, opt_harshTransition, opt_fadeTo) {
   let time = !!opt_harshTransition ? 0 : 1000;
 
   elToHide.each(function(ind) {
@@ -253,7 +250,7 @@ function hideEl_(elToHide, opt_harshTransition) {
     if (self.hasClass('opinion_response')) {
       self.prop('disabled', true);
     }
-    self.fadeTo(time, 0.1);
+    self.fadeTo(time, opt_fadeTo ? opt_fadeTo : 0);
   });
 }
 
@@ -262,8 +259,7 @@ function enableQuestion() {
 	$(".reason").addClass('enabled');
 	$(':input[type="submit"]').prop('disabled', false);
 
-  showEl_($('.to_show'));
-  hideEl_($('.to_hide'));
+  showEl_($('.initially_hide'));
 }
 </script>
 <script src="script/canvasjs.min.js"></script>
