@@ -18,6 +18,8 @@ $all_demo_in_world = count($all_demo_in_world);
 $all_republican_in_world = count($all_republican_in_world);
 $republican_who_support = count($republican_who_support);
 
+var_dump( $support_rate_of_demo, $support_rate_of_repub);
+
 if($all_demo_in_world == 0){
 $support_rate_of_demo = NULL;
 $oppose_rate_of_demo = NULL;

@@ -272,9 +272,9 @@
 
       $demo_who_support = exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND user_political_stand = 'agree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll();
       $demo_who_oppose = exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND user_political_stand = 'disagree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll();
-
       $all_demo_in_world = exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND world_id = '$current_user_world_id' AND (user_response IS NOT NULL) AND (user.political_stand = 'Democrats' OR user.political_stand = 'strong Democrats'))")->fetchAll();
 
+      var_dump($demo_who_support,$all_demo_in_world);
       $all_demo_in_world = count($all_demo_in_world);
 
       $demo_who_oppose = count($demo_who_oppose);
@@ -293,7 +293,7 @@
 
       $republican_who_support=exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND user_political_stand = 'agree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Republicans' OR user.political_stand = 'strong Republicans'))")->fetchAll();
       $republican_who_oppose=exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND user_political_stand = 'disagree' AND world_id = '$current_user_world_id' AND (user.political_stand = 'Republicans' OR user.political_stand = 'strong Republicans'))")->fetchAll();
-      $all_republican_in_world=exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND world_id = '$current_user_world_id' AND (user_response IS NOT NULL) AND (user.political_stand = 'Republicans' OR user.political_stand = 'strong Republicans'))")->fetchAll();
+      $all_republican_in_world=exec_sql_query($myPDO, "SELECT * FROM user_question_world_answer JOIN user ON user.mturk = user_question_world_answer.user_id WHERE (question_id = '$id_carrier' AND world_id = '$current_user_world_id' AND (user_political_stand IS NOT NULL) AND (user.political_stand = 'Republicans' OR user.political_stand = 'strong Republicans'))")->fetchAll();
       $all_republican_in_world = count($all_republican_in_world);
       $republican_who_support = count($republican_who_support);
       $republican_who_oppose = count($republican_who_oppose);

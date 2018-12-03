@@ -7,7 +7,7 @@ $dominant_party = '';
 $nondominant_party = '';
 
 // echo $support_num_of_demo_percent,$support_num_of_repub_percent;
-// var_dump( $support_rate_of_demo, $support_rate_of_repub);
+var_dump( $support_rate_of_demo, $support_rate_of_repub);
 
 if($id_carrier==23){
   $dominant_party = 'Republicans';
